@@ -171,16 +171,10 @@
                     <span class="text-brandBlue">📞</span> Call Us: +91 97 97 97 21 75
                 </a>
 
-                <!-- Replicated Round Blue Search Icon -->
-                <button onclick="document.getElementById('hero-search-input').focus()" aria-label="Search"
-                    class="w-10 h-10 bg-brandBlue hover:bg-brandBlue-hover text-white flex items-center justify-center rounded-full transition-all duration-300 shadow-md">
-                    🔍
-                </button>
-
-                <!-- Replicated Blue Login Button -->
-                <a href="dashboard.html"
+                <!-- Book Now Button -->
+                <a href="packages.html"
                     class="bg-brandBlue hover:bg-brandBlue-hover text-white px-6 py-2.5 text-xs uppercase tracking-[0.15em] font-bold transition-all duration-300 rounded-full shadow-md">
-                    Login
+                    Book Now
                 </a>
 
                 <!-- Mobile Menu Button -->
@@ -761,6 +755,18 @@
 
             // Show confirmation popup
             document.getElementById('confirm-modal').classList.remove('hidden');
+        }
+
+        // Footer Newsletter Submissions
+        function handleFooterSubscribe(event) {
+            event.preventDefault();
+            const input = document.getElementById('footer-news-input');
+            const successMsg = document.getElementById('footer-success-msg');
+            if (input.value) {
+                successMsg.classList.remove('hidden');
+                input.value = '';
+                setTimeout(() => successMsg.classList.add('hidden'), 5000);
+            }
         }
 
         // 6. Pre-select Destination based on URL Query Parameters
