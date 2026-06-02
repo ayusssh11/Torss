@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripNest | Curated Journeys & Bespoke Luxury Concierge</title>
+
+    <!-- Meta Descriptions for SEO -->
+    <meta name="description"
+        content="Embark on unparalleled bespoke journeys with TripNest. Discover handpicked elite accommodations, private aviation, and luxury itineraries designed for the discerning global traveler.">
+    <meta name="keywords"
+        content="luxury travel, boutique concierge, bespoke itineraries, private jet, luxury hotel booking, tailormade tours, TripNest">
+
+    <!-- Google Fonts: Cormorant Garamond (Serif) & Plus Jakarta Sans (Sans-Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Configuration for Luxury Theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        onyx: '#090d16',
+                        cream: '#ffffff',
+                        brandBlue: {
+                            DEFAULT: '#1A56DB',
+                            hover: '#1D4ED8',
+                            light: '#EFF6FF',
+                        },
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        sm: '8px',
+                        md: '12px',
+                        lg: '16px',
+                        xl: '24px',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS Overrides for Premium Aesthetic -->
+    <style type="text/css">
+        /* Custom blue/green thin scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1A56DB;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #70c21e;
+        }
+
+        /* Custom image zoom hover transition */
+        .zoom-img-container:hover .zoom-img {
+            transform: scale(1.1);
+        }
+
+        /* Smooth fade-in transition for filtered cards */
+        .fade-card {
+            transition: all 0.50s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-card.hidden-card {
+            opacity: 0;
+            transform: scale(0.95) translateY(10px);
+            pointer-events: none;
+            position: absolute;
+            width: 0;
+            height: 0;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            border: none;
+        }
+
+        /* Circular Category navigation active state indicator */
+        .story-active {
+            border-color: #70c21e !important;
+            box-shadow: 0 0 12px rgba(112, 194, 30, 0.4);
+        }
+
+        /* Scroll reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-b from-white via-blue-50/20 to-white text-blue-900 font-sans antialiased selection:bg-brandBlue selection:text-white min-h-screen flex flex-col pt-20">
+
+    <!-- =========================================
+         GLOBAL NAVIGATION HEADER
+         ========================================= -->
+    <header id="main-nav"
+        class="fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-blue-100 bg-white/95 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 sm:px-12 h-20 flex items-center justify-between">
+            <!-- Brand Logo and Zanskar live badge -->
+            <div class="flex items-center gap-4 flex-shrink-0">
+                <a href="index.html" class="flex items-center gap-2 group">
+                    <span class="font-sans font-extrabold text-2xl tracking-tight text-brandBlue">Trip<span
+                            class="text-brandBlue">Nest</span></span>
+                </a>
+
+                <!-- Replicated Live Badge: Hidden on medium/large desktops, visible only on wider screens -->
+                <div
+                    class="hidden xl:flex items-center gap-1.5 border border-brandBlue/30 px-3 py-1 rounded-full bg-brandBlue/5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brandBlue animate-ping"></span>
+                    <span class="text-[9px] uppercase tracking-widest text-brandBlue font-bold">Ladakh Group
+                        Live</span>
+                </div>
+            </div>
+
+            <!-- Navigation Links: Removed redundant Home link, reduced gaps and adjusted font details -->
+            <nav class="hidden lg:flex items-center gap-5 xl:gap-6 flex-grow justify-center px-4">
+                <a href="packages.html"
+                    class="text-[11px] uppercase tracking-wider font-bold text-blue-700 hover:text-brandBlue transition-colors duration-300">Backpacking
+                    Trips <span class="text-[7px] align-middle"></span></a>
+                <a href="#services"
+                    class="text-[11px] uppercase tracking-wider font-bold text-blue-700 hover:text-brandBlue transition-colors duration-300">Best
+                    Sellers <span class="text-[7px] align-middle"></span></a>
+                <a href="about.html"
+                    class="text-[11px] uppercase tracking-wider font-bold text-blue-700 hover:text-brandBlue transition-colors duration-300">Biking
+                    Trips <span class="text-[7px] align-middle"></span></a>
+                <a href="contact.html"
+                    class="text-[11px] uppercase tracking-wider font-bold text-blue-700 hover:text-brandBlue transition-colors duration-300">Contact</a>
+            </nav>
+
+            <!-- Direct Contact & CTA -->
+            <div class="flex items-center gap-3 sm:gap-4 flex-shrink-0">
+                <!-- Phone details: Hidden on laptops, visible on very wide 2xl screens to avoid congestion -->
+                <a href="tel:+919797972175"
+                    class="hidden 2xl:flex items-center gap-2 text-xs font-bold tracking-[0.05em] text-blue-700 hover:text-brandBlue transition-colors duration-300">
+                    <span class="text-brandBlue">📞</span> Call Us: +91 97 97 97 21 75
+                </a>
+
+                <!-- Replicated Round Blue Search Icon -->
+                <button onclick="document.getElementById('hero-search-input').focus()" aria-label="Search"
+                    class="w-10 h-10 bg-brandBlue hover:bg-brandBlue-hover text-white flex items-center justify-center rounded-full transition-all duration-300 shadow-md">
+                    🔍
+                </button>
+
+                <!-- Replicated Blue Login Button -->
+                <a href="dashboard.html"
+                    class="bg-brandBlue hover:bg-brandBlue-hover text-white px-6 py-2.5 text-xs uppercase tracking-[0.15em] font-bold transition-all duration-300 rounded-full shadow-md">
+                    Login
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" aria-label="Toggle Navigation Menu"
+                    class="lg:hidden flex flex-col justify-between h-4 w-6 cursor-pointer group">
+                    <span
+                        class="h-[1.5px] w-full bg-blue-800 group-hover:bg-brandBlue transition-all duration-300"></span>
+                    <span
+                        class="h-[1.5px] w-full bg-blue-800 group-hover:bg-brandBlue transition-all duration-300"></span>
+                    <span
+                        class="h-[1.5px] w-full bg-blue-800 group-hover:bg-brandBlue transition-all duration-300"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-dropdown"
+            class="hidden lg:hidden bg-white border-b border-blue-100 px-6 py-8 flex flex-col gap-6 animate-fadeIn shadow-lg">
+            <a href="index.html" class="text-sm uppercase tracking-[0.15em] font-bold text-brandBlue">Home</a>
+            <a href="packages.html"
+                class="text-sm uppercase tracking-[0.15em] font-semibold text-blue-700 hover:text-brandBlue">Backpacking
+                Trips</a>
+            <a href="#services"
+                class="text-sm uppercase tracking-[0.15em] font-semibold text-blue-700 hover:text-brandBlue">Best
+                Sellers</a>
+            <a href="about.html"
+                class="text-sm uppercase tracking-[0.15em] font-semibold text-blue-700 hover:text-brandBlue">Biking
+                Trips</a>
+            <a href="contact.html"
+                class="text-sm uppercase tracking-[0.15em] font-semibold text-blue-700 hover:text-brandBlue">Contact</a>
+            <a href="contact.html"
+                class="bg-brandBlue hover:bg-brandBlue-hover text-center py-3 text-sm uppercase tracking-[0.15em] font-bold text-white transition-all duration-300 rounded-full shadow-md">
+                Plan My Journey
+            </a>
+        </div>
+    </header>
+
+    <!-- =========================================
+         CATALOG HEADER (EDITORIAL HERO BANNER)
+         ========================================= -->
+    <section class="relative bg-onyx py-28 overflow-hidden">
+        <!-- Immersive Background Image with Dark Linear Overlays -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=80" alt="Luxury Travel Catalog"
+                class="w-full h-full object-cover opacity-35 scale-105 transform transition-transform duration-[10000ms] ease-out">
+            <div class="absolute inset-0 bg-gradient-to-r from-onyx via-onyx/85 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-onyx/90 via-transparent to-onyx/40"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 text-left space-y-5">
+            <span class="text-brandBlue uppercase tracking-[0.35em] text-[10px] sm:text-xs font-bold block">ELITE VOYAGES PORTFOLIO</span>
+            <h1 class="font-serif text-5xl md:text-7xl font-extralight tracking-tight text-white leading-none">
+                The Portfolio of <span class="italic text-brandBlue font-light drop-shadow-[0_0_15px_rgba(26,86,219,0.3)]">Journeys</span>
+            </h1>
+            <p class="text-white/70 text-xs sm:text-sm font-light tracking-wide max-w-xl leading-relaxed pt-2">
+                Filter and browse through our exclusive catalog of luxury escapes. Each experience represents our hallmark commitment to premium hospitality under the TripNest Standard.
+            </p>
+        </div>
+    </section>
+
+    <!-- =========================================
+         MAIN CATALOG SECTION (SIDEBAR + GRID)
+         ========================================= -->
+    <main class="max-w-7xl mx-auto px-6 sm:px-12 py-16 flex-1 flex flex-col lg:flex-row gap-12 items-start w-full relative z-10">
+
+        <!-- Filter Sidebar -->
+        <aside class="w-full lg:w-80 bg-white/95 backdrop-blur-md border border-blue-100/80 shadow-[0_10px_30px_-15px_rgba(26,86,219,0.06)] p-8 lg:sticky lg:top-28 rounded-2xl space-y-8 z-20">
+            <div class="flex items-center justify-between border-b border-blue-50 pb-4">
+                <span class="text-xs uppercase tracking-[0.25em] text-brandBlue font-bold flex items-center gap-2">
+                    <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                    </svg>
+                    Refine Search
+                </span>
+                <button id="clear-filters-btn" onclick="resetSidebarFilters()"
+                    class="text-[10px] uppercase tracking-[0.2em] text-blue-500 hover:text-brandBlue font-bold transition-colors duration-300">Reset All</button>
+            </div>
+
+            <!-- Search input within filters -->
+            <div class="space-y-3">
+                <h3 class="text-[10px] uppercase tracking-[0.25em] text-blue-900 font-extrabold flex items-center gap-1.5">
+                    🔎 Keyword Search
+                </h3>
+                <div class="relative border-b border-blue-200 focus-within:border-brandBlue transition-all duration-300">
+                    <input id="sidebar-search-input" type="text" placeholder="TYPE DESTINATION..." oninput="applySidebarFilters()"
+                        class="bg-transparent border-0 px-0 py-2 w-full text-xs font-semibold tracking-wider text-blue-900 uppercase placeholder-blue-300 focus:ring-0 focus:outline-none">
+                </div>
+            </div>
+
+            <!-- Style Category Filter -->
+            <div class="space-y-4">
+                <h3 class="text-[10px] uppercase tracking-[0.25em] text-blue-900 font-extrabold flex items-center gap-1.5">
+                    Camping Style
+                </h3>
+                <div class="flex flex-col gap-3 text-xs font-medium text-blue-700">
+                    <label class="flex items-center gap-3 cursor-pointer group py-1 px-2 -mx-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                        <input type="checkbox" name="style" value="adventure" onchange="applySidebarFilters()"
+                            class="form-checkbox bg-transparent border-blue-300 text-brandBlue focus:ring-0 focus:ring-offset-0 rounded-[4px] w-4 h-4 cursor-pointer">
+                        <span class="group-hover:text-blue-900 transition-colors duration-300">Adventure</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group py-1 px-2 -mx-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                        <input type="checkbox" name="style" value="tour" onchange="applySidebarFilters()"
+                            class="form-checkbox bg-transparent border-blue-300 text-brandBlue focus:ring-0 focus:ring-offset-0 rounded-[4px] w-4 h-4 cursor-pointer">
+                        <span class="group-hover:text-blue-900 transition-colors duration-300">Cultural Tour</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group py-1 px-2 -mx-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                        <input type="checkbox" name="style" value="mountain" onchange="applySidebarFilters()"
+                            class="form-checkbox bg-transparent border-blue-300 text-brandBlue focus:ring-0 focus:ring-offset-0 rounded-[4px] w-4 h-4 cursor-pointer">
+                        <span class="group-hover:text-blue-900 transition-colors duration-300">Mountain Escape</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group py-1 px-2 -mx-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                        <input type="checkbox" name="style" value="beach" onchange="applySidebarFilters()"
+                            class="form-checkbox bg-transparent border-blue-300 text-brandBlue focus:ring-0 focus:ring-offset-0 rounded-[4px] w-4 h-4 cursor-pointer">
+                        <span class="group-hover:text-blue-900 transition-colors duration-300">Beachside Getaway</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group py-1 px-2 -mx-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                        <input type="checkbox" name="style" value="nature" onchange="applySidebarFilters()"
+                            class="form-checkbox bg-transparent border-blue-300 text-brandBlue focus:ring-0 focus:ring-offset-0 rounded-[4px] w-4 h-4 cursor-pointer">
+                        <span class="group-hover:text-blue-900 transition-colors duration-300">Natural Wilderness</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group py-1 px-2 -mx-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                        <input type="checkbox" name="style" value="international" onchange="applySidebarFilters()"
+                            class="form-checkbox bg-transparent border-blue-300 text-brandBlue focus:ring-0 focus:ring-offset-0 rounded-[4px] w-4 h-4 cursor-pointer">
+                        <span class="group-hover:text-blue-900 transition-colors duration-300">International Elite</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Duration Filter -->
+            <div class="space-y-4">
+                <h3 class="text-[10px] uppercase tracking-[0.25em] text-blue-900 font-extrabold flex items-center gap-1.5">
+                    ⏱️ Trip Duration
+                </h3>
+                <div class="flex flex-col gap-3 text-xs font-medium text-blue-700">
+                    <label class="flex items-center gap-3 cursor-pointer group py-1 px-2 -mx-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                        <input type="checkbox" name="duration" value="short" onchange="applySidebarFilters()"
+                            class="form-checkbox bg-transparent border-blue-300 text-brandBlue focus:ring-0 focus:ring-offset-0 rounded-[4px] w-4 h-4 cursor-pointer">
+                        <span class="group-hover:text-blue-900 transition-colors duration-300">3 - 4 Days (Short)</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group py-1 px-2 -mx-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                        <input type="checkbox" name="duration" value="medium" onchange="applySidebarFilters()"
+                            class="form-checkbox bg-transparent border-blue-300 text-brandBlue focus:ring-0 focus:ring-offset-0 rounded-[4px] w-4 h-4 cursor-pointer">
+                        <span class="group-hover:text-blue-900 transition-colors duration-300">5 - 6 Days (Medium)</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group py-1 px-2 -mx-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                        <input type="checkbox" name="duration" value="long" onchange="applySidebarFilters()"
+                            class="form-checkbox bg-transparent border-blue-300 text-brandBlue focus:ring-0 focus:ring-offset-0 rounded-[4px] w-4 h-4 cursor-pointer">
+                        <span class="group-hover:text-blue-900 transition-colors duration-300">7+ Days (Long)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Budget Filter -->
+            <div class="space-y-4">
+                <h3 class="text-[10px] uppercase tracking-[0.25em] text-blue-900 font-extrabold flex items-center gap-1.5">
+                    💳 Budget Range
+                </h3>
+                <div class="flex flex-col gap-3 text-xs font-medium text-blue-700">
+                    <label class="flex items-center gap-3 cursor-pointer group py-1 px-2 -mx-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                        <input type="checkbox" name="budget" value="tier1" onchange="applySidebarFilters()"
+                            class="form-checkbox bg-transparent border-blue-300 text-brandBlue focus:ring-0 focus:ring-offset-0 rounded-[4px] w-4 h-4 cursor-pointer">
+                        <span class="group-hover:text-blue-900 transition-colors duration-300">Under ₹25,000</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group py-1 px-2 -mx-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                        <input type="checkbox" name="budget" value="tier2" onchange="applySidebarFilters()"
+                            class="form-checkbox bg-transparent border-blue-300 text-brandBlue focus:ring-0 focus:ring-offset-0 rounded-[4px] w-4 h-4 cursor-pointer">
+                        <span class="group-hover:text-blue-900 transition-colors duration-300">₹25,000 - ₹50,000</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group py-1 px-2 -mx-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                        <input type="checkbox" name="budget" value="tier3" onchange="applySidebarFilters()"
+                            class="form-checkbox bg-transparent border-blue-300 text-brandBlue focus:ring-0 focus:ring-offset-0 rounded-[4px] w-4 h-4 cursor-pointer">
+                        <span class="group-hover:text-blue-900 transition-colors duration-300">Over ₹50,000</span>
+                    </label>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right Side: Packages Grid & Controls -->
+        <section class="flex-1 w-full space-y-8">
+
+            <!-- Sorting and Result Statistics Bar -->
+            <div class="bg-white border border-blue-100 shadow-[0_10px_30px_-15px_rgba(26,86,219,0.04)] px-8 py-4.5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 z-10 relative">
+                <span class="showing-metric text-xs text-blue-500 uppercase tracking-[0.25em] font-semibold">Showing 6 of 6 Elite Packages</span>
+                <div class="flex items-center gap-3">
+                    <label for="sort-select" class="text-[10px] uppercase tracking-[0.2em] font-bold text-blue-900 whitespace-nowrap">Sort By:</label>
+                    <div class="relative">
+                        <select id="sort-select" onchange="sortPackages()"
+                            class="bg-blue-50/50 border border-blue-100 text-xs font-semibold tracking-wider text-blue-900 py-2 pl-4 pr-10 rounded-full focus:outline-none focus:border-brandBlue focus:ring-0 cursor-pointer appearance-none relative">
+                            <option value="default">Recommended</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="duration-asc">Duration: Short to Long</option>
+                            <option value="duration-desc">Duration: Long to Short</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-blue-900">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards Grid Container -->
+            <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-onyx">
+
+                <!-- Card 1: Dubai -->
+                <article
+                    class="fade-card bg-white border border-blue-100 flex flex-col justify-between overflow-hidden group rounded-2xl shadow-[0_10px_35px_-15px_rgba(26,86,219,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(26,86,219,0.12)] hover:border-brandBlue/30 hover:-translate-y-2 transition-all duration-500 relative"
+                    data-style="adventure,international" data-duration="medium" data-budget="tier2" data-price="45999" data-days="6" data-title="dubai">
+                    <div class="zoom-img-container overflow-hidden relative aspect-[4/3] bg-onyx">
+                        <span class="absolute top-4 left-4 z-10 bg-onyx/85 border border-brandBlue/35 text-brandBlue text-[8px] uppercase tracking-[0.25em] px-3.5 py-1.5 font-bold rounded-full backdrop-blur-sm">Adventure</span>
+                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80"
+                            alt="Dubai Luxury"
+                            class="zoom-img w-full h-full object-cover transition-transform duration-[1.5s] ease-out opacity-85 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-onyx/40 via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+                    <div class="p-8 flex flex-col justify-between flex-1 gap-6 text-left">
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-baseline gap-2">
+                                <h3 class="font-sans text-xl font-extrabold text-blue-950 tracking-tight leading-tight group-hover:text-brandBlue transition-all duration-300">Dubai Luxury Tour</h3>
+                                <span class="text-brandBlue font-sans text-xl font-extrabold flex-shrink-0">₹45,999</span>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-3 pt-1 border-b border-blue-50 pb-3">
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[9px] font-bold tracking-wider text-blue-700">📍 International Hub</span>
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[9px] font-bold tracking-wider text-blue-700">⏱️ 6 Days / 5 Nights</span>
+                            </div>
+                            <div class="space-y-2">
+                                <span class="text-[9px] uppercase tracking-wider text-blue-400 font-extrabold block">Highlights</span>
+                                <ul class="grid grid-cols-2 gap-x-4 gap-y-2 text-xs font-semibold text-blue-600/80">
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>5-Star Hotels</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Desert Safari</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Mall Tours</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Yacht Cruise</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Shopping Allowance</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>VIP Guides</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="package-detail.html?package=dubai"
+                            class="w-full py-4 bg-brandBlue hover:bg-brandBlue-hover text-white text-center text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-full flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-brandBlue/20 shadow-md">
+                            Inquire Voyage
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 2: Rajasthan -->
+                <article
+                    class="fade-card bg-white border border-blue-100 flex flex-col justify-between overflow-hidden group rounded-2xl shadow-[0_10px_35px_-15px_rgba(26,86,219,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(26,86,219,0.12)] hover:border-brandBlue/30 hover:-translate-y-2 transition-all duration-500 relative"
+                    data-style="tour" data-duration="medium" data-budget="tier2" data-price="29999" data-days="5" data-title="rajasthan">
+                    <div class="zoom-img-container overflow-hidden relative aspect-[4/3] bg-onyx">
+                        <span class="absolute top-4 left-4 z-10 bg-red-600 border border-red-500 text-white text-[8px] uppercase tracking-[0.25em] px-3.5 py-1.5 font-bold rounded-full shadow-md animate-pulse">Offer</span>
+                        <img src="https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=600&q=80"
+                            alt="Rajasthan Palace"
+                            class="zoom-img w-full h-full object-cover transition-transform duration-[1.5s] ease-out opacity-85 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-onyx/40 via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+                    <div class="p-8 flex flex-col justify-between flex-1 gap-6 text-left">
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-baseline gap-2">
+                                <h3 class="font-sans text-xl font-extrabold text-blue-950 tracking-tight leading-tight group-hover:text-brandBlue transition-all duration-300">Rajasthan Royal Tour</h3>
+                                <span class="text-brandBlue font-sans text-xl font-extrabold flex-shrink-0">₹29,999</span>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-3 pt-1 border-b border-blue-50 pb-3">
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[9px] font-bold tracking-wider text-blue-700">📍 Palace Grounds</span>
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[9px] font-bold tracking-wider text-blue-700">⏱️ 5 Days / 4 Nights</span>
+                            </div>
+                            <div class="space-y-2">
+                                <span class="text-[9px] uppercase tracking-wider text-blue-400 font-extrabold block">Highlights</span>
+                                <ul class="grid grid-cols-2 gap-x-4 gap-y-2 text-xs font-semibold text-blue-600/80">
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Palace Tours</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Camel Rides</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Folk Shows</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Traditional Food</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Photography Tours</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Expert Guides</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="package-detail.html?package=rajasthan"
+                            class="w-full py-4 bg-brandBlue hover:bg-brandBlue-hover text-white text-center text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-full flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-brandBlue/20 shadow-md">
+                            Inquire Voyage
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 3: Manali -->
+                <article
+                    class="fade-card bg-white border border-blue-100 flex flex-col justify-between overflow-hidden group rounded-2xl shadow-[0_10px_35px_-15px_rgba(26,86,219,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(26,86,219,0.12)] hover:border-brandBlue/30 hover:-translate-y-2 transition-all duration-500 relative"
+                    data-style="mountain,adventure" data-duration="short" data-budget="tier1" data-price="19999" data-days="4" data-title="manali">
+                    <div class="zoom-img-container overflow-hidden relative aspect-[4/3] bg-onyx">
+                        <span class="absolute top-4 left-4 z-10 bg-brandBlue text-white text-[8px] uppercase tracking-[0.25em] px-3.5 py-1.5 font-bold rounded-full shadow-md">Popular</span>
+                        <img src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=600&q=80"
+                            alt="Manali Adventure"
+                            class="zoom-img w-full h-full object-cover transition-transform duration-[1.5s] ease-out opacity-85 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-onyx/40 via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+                    <div class="p-8 flex flex-col justify-between flex-1 gap-6 text-left">
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-baseline gap-2">
+                                <h3 class="font-sans text-xl font-extrabold text-blue-950 tracking-tight leading-tight group-hover:text-brandBlue transition-all duration-300">Manali Adventure Package</h3>
+                                <span class="text-brandBlue font-sans text-xl font-extrabold flex-shrink-0">₹19,999</span>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-3 pt-1 border-b border-blue-50 pb-3">
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[9px] font-bold tracking-wider text-blue-700">📍 Himalayan Passes</span>
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[9px] font-bold tracking-wider text-blue-700">⏱️ 4 Days / 3 Nights</span>
+                            </div>
+                            <div class="space-y-2">
+                                <span class="text-[9px] uppercase tracking-wider text-blue-400 font-extrabold block">Highlights</span>
+                                <ul class="grid grid-cols-2 gap-x-4 gap-y-2 text-xs font-semibold text-blue-600/80">
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Mountain Trekking</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Paragliding</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Camping</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Local Guides</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>All Meals</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Photography Session</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="package-detail.html?package=manali"
+                            class="w-full py-4 bg-brandBlue hover:bg-brandBlue-hover text-white text-center text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-full flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-brandBlue/20 shadow-md">
+                            Inquire Voyage
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 4: Maldives -->
+                <article
+                    class="fade-card bg-white border border-blue-100 flex flex-col justify-between overflow-hidden group rounded-2xl shadow-[0_10px_35px_-15px_rgba(26,86,219,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(26,86,219,0.12)] hover:border-brandBlue/30 hover:-translate-y-2 transition-all duration-500 relative"
+                    data-style="international,beach" data-duration="long" data-budget="tier3" data-price="89999" data-days="7" data-title="maldives">
+                    <div class="zoom-img-container overflow-hidden relative aspect-[4/3] bg-onyx">
+                        <span class="absolute top-4 left-4 z-10 bg-yellow-500 border border-yellow-400 text-white text-[8px] uppercase tracking-[0.25em] px-3.5 py-1.5 font-bold rounded-full shadow-md">Luxury</span>
+                        <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=600&q=80"
+                            alt="Maldives Honeymoon"
+                            class="zoom-img w-full h-full object-cover transition-transform duration-[1.5s] ease-out opacity-85 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-onyx/40 via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+                    <div class="p-8 flex flex-col justify-between flex-1 gap-6 text-left">
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-baseline gap-2">
+                                <h3 class="font-sans text-xl font-extrabold text-blue-950 tracking-tight leading-tight group-hover:text-brandBlue transition-all duration-300">Maldives Honeymoon</h3>
+                                <span class="text-brandBlue font-sans text-xl font-extrabold flex-shrink-0">₹89,999</span>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-3 pt-1 border-b border-blue-50 pb-3">
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[9px] font-bold tracking-wider text-blue-700">📍 Private Atolls</span>
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[9px] font-bold tracking-wider text-blue-700">⏱️ 7 Days / 6 Nights</span>
+                            </div>
+                            <div class="space-y-2">
+                                <span class="text-[9px] uppercase tracking-wider text-blue-400 font-extrabold block">Highlights</span>
+                                <ul class="grid grid-cols-2 gap-x-4 gap-y-2 text-xs font-semibold text-blue-600/80">
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Overwater Bungalow</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Private Beach</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Spa Services</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Romantic Dinners</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Water Activities</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Dedicated Concierge</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="package-detail.html?package=maldives"
+                            class="w-full py-4 bg-brandBlue hover:bg-brandBlue-hover text-white text-center text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-full flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-brandBlue/20 shadow-md">
+                            Inquire Voyage
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 5: Goa -->
+                <article
+                    class="fade-card bg-white border border-blue-100 flex flex-col justify-between overflow-hidden group rounded-2xl shadow-[0_10px_35px_-15px_rgba(26,86,219,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(26,86,219,0.12)] hover:border-brandBlue/30 hover:-translate-y-2 transition-all duration-500 relative"
+                    data-style="beach" data-duration="short" data-budget="tier1" data-price="15999" data-days="3" data-title="goa">
+                    <div class="zoom-img-container overflow-hidden relative aspect-[4/3] bg-onyx">
+                        <span class="absolute top-4 left-4 z-10 bg-green-600 border border-green-500 text-white text-[8px] uppercase tracking-[0.25em] px-3.5 py-1.5 font-bold rounded-full shadow-md">Budget</span>
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+                            alt="Goa Beach Getaway"
+                            class="zoom-img w-full h-full object-cover transition-transform duration-[1.5s] ease-out opacity-85 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-onyx/40 via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+                    <div class="p-8 flex flex-col justify-between flex-1 gap-6 text-left">
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-baseline gap-2">
+                                <h3 class="font-sans text-xl font-extrabold text-blue-950 tracking-tight leading-tight group-hover:text-brandBlue transition-all duration-300">Goa Beach Getaway</h3>
+                                <span class="text-brandBlue font-sans text-xl font-extrabold flex-shrink-0">₹15,999</span>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-3 pt-1 border-b border-blue-50 pb-3">
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[9px] font-bold tracking-wider text-blue-700">📍 Coastal Resort</span>
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[9px] font-bold tracking-wider text-blue-700">⏱️ 3 Days / 2 Nights</span>
+                            </div>
+                            <div class="space-y-2">
+                                <span class="text-[9px] uppercase tracking-wider text-blue-400 font-extrabold block">Highlights</span>
+                                <ul class="grid grid-cols-2 gap-x-4 gap-y-2 text-xs font-semibold text-blue-600/80">
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Beach Resort</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Water Sports</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Nightlife Tours</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Seafood Dinners</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Airport Transfers</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="package-detail.html?package=goa"
+                            class="w-full py-4 bg-brandBlue hover:bg-brandBlue-hover text-white text-center text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-full flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-brandBlue/20 shadow-md">
+                            Inquire Voyage
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 6: Kerala -->
+                <article
+                    class="fade-card bg-white border border-blue-100 flex flex-col justify-between overflow-hidden group rounded-2xl shadow-[0_10px_35px_-15px_rgba(26,86,219,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(26,86,219,0.12)] hover:border-brandBlue/30 hover:-translate-y-2 transition-all duration-500 relative"
+                    data-style="nature" data-duration="medium" data-budget="tier1" data-price="24999" data-days="5" data-title="kerala">
+                    <div class="zoom-img-container overflow-hidden relative aspect-[4/3] bg-onyx">
+                        <span class="absolute top-4 left-4 z-10 bg-brandBlue text-white text-[8px] uppercase tracking-[0.25em] px-3.5 py-1.5 font-bold rounded-full shadow-md">Popular</span>
+                        <img src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=600&q=80"
+                            alt="Kerala Backwaters Tour"
+                            class="zoom-img w-full h-full object-cover transition-transform duration-[1.5s] ease-out opacity-85 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-onyx/40 via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+                    <div class="p-8 flex flex-col justify-between flex-1 gap-6 text-left">
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-baseline gap-2">
+                                <h3 class="font-sans text-xl font-extrabold text-blue-950 tracking-tight leading-tight group-hover:text-brandBlue transition-all duration-300">Kerala Backwaters Tour</h3>
+                                <span class="text-brandBlue font-sans text-xl font-extrabold flex-shrink-0">₹24,999</span>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-3 pt-1 border-b border-blue-50 pb-3">
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[9px] font-bold tracking-wider text-blue-700">📍 Alleppey Backwaters</span>
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[9px] font-bold tracking-wider text-blue-700">⏱️ 5 Days / 4 Nights</span>
+                            </div>
+                            <div class="space-y-2">
+                                <span class="text-[9px] uppercase tracking-wider text-blue-400 font-extrabold block">Highlights</span>
+                                <ul class="grid grid-cols-2 gap-x-4 gap-y-2 text-xs font-semibold text-blue-600/80">
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Houseboat Stay</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Local Cuisine</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Spice Farm Visit</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>Sunset Boat Tours</li>
+                                    <li class="flex items-center gap-2"><span class="text-brandBlue text-xs">✓</span>WiFi</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="package-detail.html?package=kerala"
+                            class="w-full py-4 bg-brandBlue hover:bg-brandBlue-hover text-white text-center text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-full flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-brandBlue/20 shadow-md">
+                            Inquire Voyage
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- "No results found" Alert -->
+            <div id="no-results"
+                class="hidden text-center py-20 bg-white border border-blue-100/80 shadow-[0_10px_30px_-15px_rgba(26,86,219,0.06)] space-y-4 rounded-2xl">
+                <span class="font-serif text-2xl text-brandBlue font-light block">No Journeys Match Your Request</span>
+                <p class="text-blue-600 text-xs font-semibold tracking-wider">
+                    Try broadening your refinement selections or resetting the filters to view the complete catalog.
+                </p>
+                <button onclick="resetSidebarFilters()"
+                    class="mt-4 px-8 py-3 bg-brandBlue text-white text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-full shadow-md shadow-brandBlue/20 hover:bg-brandBlue-hover">
+                    Reset Portfolio
+                </button>
+            </div>
+
+            <!-- Pagination Grid Controls -->
+            <div id="pagination-controls"
+                class="border-t border-blue-100 pt-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <span class="showing-metric text-xs text-blue-500 uppercase tracking-[0.25em] font-semibold">Showing 6 of 6 Elite Packages</span>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="px-6 py-3 border border-blue-100 bg-white text-blue-400 text-xs uppercase tracking-[0.2em] font-bold rounded-full cursor-not-allowed"
+                        disabled>Prev</button>
+                    <span class="text-xs uppercase tracking-[0.2em] text-brandBlue font-bold">1 / 1</span>
+                    <button
+                        class="px-6 py-3 border border-blue-100 bg-white text-blue-400 text-xs uppercase tracking-[0.2em] font-bold rounded-full cursor-not-allowed"
+                        disabled>Next</button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =========================================
+         GLOBAL FOOTER (DARK THEME)
+         ========================================= -->
+    <!-- =========================================
+         CTA SECTION: THE INNER CIRCLE NEWSLETTER
+         ========================================= -->
+    <section class="bg-blue-50 py-20 px-6 sm:px-12 relative z-10 border-b border-blue-100">
+        <div class="max-w-7xl mx-auto">
+            <div
+                class="bg-gradient-to-r from-brandBlue to-slate-900 border border-brandBlue/20 p-8 sm:p-12 lg:p-16 rounded-[2rem] shadow-2xl relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="absolute inset-0 opacity-10 mix-blend-overlay bg-repeat pointer-events-none"
+                    style="background-image: url('data:image/svg+xml;utf8,<svg viewBox=%220 0 100 100%22 xmlns=%22http://www.w3.org/2000/svg%22><filter id=%22noise%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%22 height=%22100%22 filter=%22url(%23noise)%22/></svg>');">
+                </div>
+
+                <div class="lg:col-span-7 space-y-6 relative z-10 text-left">
+                    <div class="space-y-2">
+                        <span
+                            class="text-brandBlue uppercase tracking-[0.3em] text-[10px] font-bold block">NEWSLETTER</span>
+                        <h2
+                            class="font-sans text-3xl sm:text-4xl text-white font-extrabold tracking-tight leading-none">
+                            Sign up now!</h2>
+                        <p class="text-white/80 text-xs sm:text-sm font-semibold tracking-wider leading-relaxed">
+                            Be the first one to know all about the Exciting Offers, Travel Updates and more.
+                        </p>
+                    </div>
+
+                    <!-- Input Block Capsule -->
+                    <form onsubmit="handleInnerCircleSubscribe(event)"
+                        class="w-full max-w-md bg-white p-1.5 rounded-full flex items-center shadow-xl border border-white/10">
+                        <div class="flex-1 px-4">
+                            <input id="news-email-input" type="email" placeholder="Enter Your Email" required
+                                class="bg-transparent border-0 w-full text-xs font-semibold text-blue-800 uppercase placeholder-blue-400 focus:ring-0 focus:outline-none">
+                        </div>
+                        <button type="submit"
+                            class="bg-blue-900 hover:bg-blue-800 text-white px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-full flex-shrink-0">
+                            Subscribe
+                        </button>
+                    </form>
+                    <span id="news-success-msg"
+                        class="text-[10px] uppercase tracking-[0.2em] text-brandBlue hidden font-bold">Welcome to the
+                        Inner Circle. An activation digest is on the way.</span>
+                </div>
+
+                <div
+                    class="lg:col-span-5 flex flex-col items-center lg:items-end justify-center relative z-10 text-center lg:text-right border-t lg:border-t-0 lg:border-l border-white/20 pt-8 lg:pt-0 lg:pl-12 gap-2 select-none">
+                    <span class="font-sans text-brandBlue text-xs font-bold tracking-widest block uppercase">TripNest
+                        Presents:</span>
+                    <span
+                        class="font-sans text-white text-4xl sm:text-5xl font-extrabold tracking-widest block uppercase leading-none">Raahgir</span>
+                    <span class="text-white/60 text-[9px] uppercase tracking-[0.3em] block">Monthly Newsletter (Estd.
+                        2021)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-blue-200 py-8 md:py-8 text-blue-900 mt-auto">
+        <div class="max-w-7xl mx-auto px-6 sm:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            <!-- Brand Info Column -->
+            <div class="space-y-6">
+                <a href="index.html" class="flex items-center gap-2">
+                    <span class="font-sans font-extrabold text-2xl tracking-tight text-blue-900">Trip<span
+                            class="text-brandBlue">Nest</span></span>
+                </a>
+                <p class="text-blue-600 text-xs font-semibold tracking-wider leading-relaxed max-w-xs">
+                    Curators of peerless, bespoke global journeys. Redefining high-end hospitality and private concierge
+                    services for the modern connoisseur.
+                </p>
+                <div class="flex items-center gap-4 text-blue-500 text-[10px] tracking-widest font-semibold uppercase">
+                    <span>EST. 2011</span>
+                    <span>•</span>
+                    <span>GLOBAL CONCIERGE</span>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="space-y-6">
+                <h4 class="text-xs uppercase tracking-[0.25em] font-extrabold text-blue-900 font-sans">Explore</h4>
+                <ul class="space-y-3.5 text-xs font-semibold tracking-wider text-blue-600">
+                    <li><a href="index.html" class="hover:text-brandBlue transition-colors duration-300">Home
+                            Portal</a></li>
+                    <li><a href="packages.html" class="hover:text-brandBlue transition-colors duration-300">Travel
+                            Portfolios</a></li>
+                    <li><a href="about.html" class="hover:text-brandBlue transition-colors duration-300">Brand
+                            History</a></li>
+                    <li><a href="contact.html" class="hover:text-brandBlue transition-colors duration-300">Bespoke
+                            Inquiry</a></li>
+                    <li><a href="dashboard.html" class="hover:text-brandBlue transition-colors duration-300">Concierge
+                            Lounge</a></li>
+                </ul>
+            </div>
+
+            <!-- Lounges Column -->
+            <div class="space-y-6">
+                <h4 class="text-xs uppercase tracking-[0.25em] font-extrabold text-blue-900 font-sans">Global Lounges
+                </h4>
+                <ul class="space-y-3.5 text-xs font-semibold tracking-wider text-blue-600 leading-relaxed">
+                    <li class="flex items-start gap-2.5"><span class="text-brandBlue">•</span><span>Mayfair Club, 14
+                            Savile Row, London W1S 3JN</span></li>
+                    <li class="flex items-start gap-2.5"><span class="text-brandBlue">•</span><span>Downtown Lounge,
+                            Boulevard Plaza Tower 2, Dubai</span></li>
+                    <li class="flex items-start gap-2.5"><span class="text-brandBlue">•</span><span>24/7 Hotline: +91
+                            97 97 97 21 75</span></li>
+                    <li class="flex items-start gap-2.5"><span class="text-brandBlue">•</span><span>Email:
+                            concierge@tripnest.com</span></li>
+                </ul>
+            </div>
+
+            <!-- Inner Circle Column -->
+            <div class="space-y-6">
+                <h4 class="text-xs uppercase tracking-[0.25em] font-extrabold text-blue-900 font-sans">The Inner Circle
+                </h4>
+                <p class="text-blue-600 text-xs font-semibold tracking-wider leading-relaxed">
+                    Join our exclusive circle for seasonal, high-profile itineraries and off-market concierge bookings.
+                </p>
+                <form id="footer-newsletter-form" onsubmit="handleFooterSubscribe(event)" class="flex flex-col gap-2.5">
+                    <div
+                        class="relative border-b border-blue-300 focus-within:border-brandBlue transition-all duration-300">
+                        <input id="footer-news-input" type="email" placeholder="YOUR EMAIL ADDRESS" required
+                            class="bg-transparent border-0 px-0 py-2.5 w-full text-xs font-semibold tracking-widest text-blue-900 uppercase placeholder-blue-400 focus:ring-0 focus:outline-none">
+                        <button type="submit" aria-label="Subscribe to newsletter"
+                            class="absolute right-0 top-1/2 -translate-y-1/2 text-blue-400 hover:text-brandBlue transition-colors duration-300">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <span id="footer-success-msg"
+                        class="text-[9px] uppercase tracking-[0.2em] text-brandBlue hidden font-bold">Welcome to the
+                        Inner Circle.</span>
+                </form>
+            </div>
+        </div>
+
+        <div
+            class="max-w-7xl mx-auto px-6 sm:px-12 border-t border-blue-200 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] uppercase tracking-[0.25em] text-blue-500">
+            <p>&copy; 2026 TripNest Limited. All rights reserved.</p>
+            <div class="flex items-center gap-6">
+                <a href="#" class="hover:text-brandBlue transition-colors duration-300">Privacy Policy</a>
+                <span>•</span>
+                <a href="#" class="hover:text-brandBlue transition-colors duration-300">Terms of Luxury Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================
+         JAVASCRIPT FILTER & SORTING SYSTEM
+         ========================================= -->
+    <script type="text/javascript">
+        // 1. Navigation Header Scroll Effect (Light theme header sync)
+        const mainNav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                mainNav.classList.remove('bg-white/95', 'border-blue-100');
+                mainNav.classList.add('bg-white', 'shadow-md', 'border-blue-200/50');
+            } else {
+                mainNav.classList.remove('bg-white', 'shadow-md', 'border-blue-200/50');
+                mainNav.classList.add('bg-white/95', 'border-blue-100');
+            }
+        });
+
+        // 2. Mobile Menu Trigger
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-dropdown').classList.toggle('hidden');
+        });
+
+        // 3. Keep track of original card indices for sorting restoration
+        const catalogGrid = document.getElementById('catalog-grid');
+        let originalCards = [];
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            originalCards = Array.from(catalogGrid.querySelectorAll('article'));
+            originalCards.forEach((card, index) => {
+                card.setAttribute('data-original-index', index);
+            });
+        });
+
+        // 4. Client-side sorting system
+        function sortPackages() {
+            const sortVal = document.getElementById('sort-select').value;
+            const cards = Array.from(catalogGrid.querySelectorAll('article'));
+
+            cards.sort((a, b) => {
+                if (sortVal === 'price-asc') {
+                    return parseInt(a.getAttribute('data-price')) - parseInt(b.getAttribute('data-price'));
+                } else if (sortVal === 'price-desc') {
+                    return parseInt(b.getAttribute('data-price')) - parseInt(a.getAttribute('data-price'));
+                } else if (sortVal === 'duration-asc') {
+                    return parseInt(a.getAttribute('data-days')) - parseInt(b.getAttribute('data-days'));
+                } else if (sortVal === 'duration-desc') {
+                    return parseInt(b.getAttribute('data-days')) - parseInt(a.getAttribute('data-days'));
+                } else {
+                    return parseInt(a.getAttribute('data-original-index')) - parseInt(b.getAttribute('data-original-index'));
+                }
+            });
+
+            // Clear catalog grid and append in sorted order
+            catalogGrid.innerHTML = '';
+            cards.forEach(card => {
+                catalogGrid.appendChild(card);
+            });
+        }
+
+        // 5. Multi-Filter Core System for Sidebar Checkboxes
+        function applySidebarFilters() {
+            const searchInput = document.getElementById('sidebar-search-input').value.trim().toLowerCase();
+            
+            const checkedStyles = [];
+            document.querySelectorAll('input[name="style"]:checked').forEach(cb => {
+                checkedStyles.push(cb.value);
+            });
+
+            const checkedDurations = [];
+            document.querySelectorAll('input[name="duration"]:checked').forEach(cb => {
+                checkedDurations.push(cb.value);
+            });
+
+            const checkedBudgets = [];
+            document.querySelectorAll('input[name="budget"]:checked').forEach(cb => {
+                checkedBudgets.push(cb.value);
+            });
+
+            const articles = document.querySelectorAll('#catalog-grid article');
+            let matchCount = 0;
+
+            articles.forEach(art => {
+                const titleKey = art.getAttribute('data-title').toLowerCase();
+                const styleAttr = art.getAttribute('data-style');
+                const durationAttr = art.getAttribute('data-duration');
+                const budgetAttr = art.getAttribute('data-budget');
+
+                const matchesSearch = (!searchInput || titleKey.includes(searchInput) || styleAttr.includes(searchInput));
+                const matchesStyle = (checkedStyles.length === 0 || checkedStyles.some(s => styleAttr.includes(s)));
+                const matchesDuration = (checkedDurations.length === 0 || checkedDurations.includes(durationAttr));
+                const matchesBudget = (checkedBudgets.length === 0 || checkedBudgets.includes(budgetAttr));
+
+                if (matchesSearch && matchesStyle && matchesDuration && matchesBudget) {
+                    art.classList.remove('hidden-card');
+                    matchCount++;
+                } else {
+                    art.classList.add('hidden-card');
+                }
+            });
+
+            const noResults = document.getElementById('no-results');
+            const metricsTexts = document.querySelectorAll('.showing-metric');
+
+            if (matchCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            metricsTexts.forEach(el => {
+                el.textContent = `Showing ${matchCount} of 6 Elite Packages`;
+            });
+        }
+
+        function resetSidebarFilters() {
+            document.querySelectorAll('aside input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+            });
+            document.getElementById('sidebar-search-input').value = '';
+            document.getElementById('sort-select').value = 'default';
+            sortPackages();
+            applySidebarFilters();
+        }
+
+        function checkURLQueryParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchParam = urlParams.get('search');
+            if (searchParam) {
+                document.getElementById('sidebar-search-input').value = searchParam;
+                applySidebarFilters();
+            }
+        }
+
+        // 6. Scroll Reveal Observer Integration
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+            
+            checkURLQueryParams();
+            applySidebarFilters();
+        });
+    </script>
+</body>
+
+</html>

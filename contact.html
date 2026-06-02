@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripNest | Curated Journeys & Bespoke Luxury Concierge</title>
+
+    <!-- Meta Descriptions for SEO -->
+    <meta name="description"
+        content="Embark on unparalleled bespoke journeys with TripNest. Discover handpicked elite accommodations, private aviation, and luxury itineraries designed for the discerning global traveler.">
+    <meta name="keywords"
+        content="luxury travel, boutique concierge, bespoke itineraries, private jet, luxury hotel booking, tailormade tours, TripNest">
+
+    <!-- Google Fonts: Cormorant Garamond (Serif) & Plus Jakarta Sans (Sans-Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Configuration for Luxury Theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        onyx: '#090d16',
+                        cream: '#ffffff',
+                        brandBlue: {
+                            DEFAULT: '#1A56DB',
+                            hover: '#1D4ED8',
+                            light: '#EFF6FF',
+                        },
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        sm: '8px',
+                        md: '12px',
+                        lg: '16px',
+                        xl: '24px',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS Overrides for Premium Aesthetic -->
+    <style type="text/css">
+        /* Custom blue/green thin scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1A56DB;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #70c21e;
+        }
+
+        /* Custom image zoom hover transition */
+        .zoom-img-container:hover .zoom-img {
+            transform: scale(1.1);
+        }
+
+        /* Smooth fade-in transition for filtered cards */
+        .fade-card {
+            transition: all 0.50s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-card.hidden-card {
+            opacity: 0;
+            transform: scale(0.95) translateY(10px);
+            pointer-events: none;
+            position: absolute;
+            width: 0;
+            height: 0;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            border: none;
+        }
+
+        /* Circular Category navigation active state indicator */
+        .story-active {
+            border-color: #70c21e !important;
+            box-shadow: 0 0 12px rgba(112, 194, 30, 0.4);
+        }
+
+        /* Scroll reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .step-hidden {
+            display: none !important;
+        }
+        .active-card {
+            border-color: #1A56DB !important;
+            background-color: rgba(26, 86, 219, 0.15) !important;
+            box-shadow: 0 0 15px rgba(26, 86, 219, 0.3) !important;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gradient-to-b from-white via-blue-50/20 to-white text-blue-900 font-sans antialiased selection:bg-brandBlue selection:text-white min-h-screen flex flex-col pt-20">
+
+    <!-- =========================================
+         GLOBAL NAVIGATION HEADER
+         ========================================= -->
+    <header id="main-nav"
+        class="fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-blue-100 bg-white/95 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 sm:px-12 h-20 flex items-center justify-between">
+            <!-- Brand Logo and Zanskar live badge -->
+            <div class="flex items-center gap-4 flex-shrink-0">
+                <a href="index.html" class="flex items-center gap-2 group">
+                    <span class="font-sans font-extrabold text-2xl tracking-tight text-brandBlue">Trip<span
+                            class="text-brandBlue">Nest</span></span>
+                </a>
+
+                <!-- Replicated Live Badge: Hidden on medium/large desktops, visible only on wider screens -->
+                <div
+                    class="hidden xl:flex items-center gap-1.5 border border-brandBlue/30 px-3 py-1 rounded-full bg-brandBlue/5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brandBlue animate-ping"></span>
+                    <span class="text-[9px] uppercase tracking-widest text-brandBlue font-bold">Ladakh Group
+                        Live</span>
+                </div>
+            </div>
+
+            <!-- Navigation Links: Removed redundant Home link, reduced gaps and adjusted font details -->
+            <nav class="hidden lg:flex items-center gap-5 xl:gap-6 flex-grow justify-center px-4">
+                <a href="packages.html"
+                    class="text-[11px] uppercase tracking-wider font-bold text-blue-700 hover:text-brandBlue transition-colors duration-300">Backpacking
+                    Trips <span class="text-[7px] align-middle"></span></a>
+                <a href="#services"
+                    class="text-[11px] uppercase tracking-wider font-bold text-blue-700 hover:text-brandBlue transition-colors duration-300">Best
+                    Sellers <span class="text-[7px] align-middle"></span></a>
+                <a href="about.html"
+                    class="text-[11px] uppercase tracking-wider font-bold text-blue-700 hover:text-brandBlue transition-colors duration-300">Biking
+                    Trips <span class="text-[7px] align-middle"></span></a>
+                <a href="contact.html"
+                    class="text-[11px] uppercase tracking-wider font-bold text-blue-700 hover:text-brandBlue transition-colors duration-300">Contact</a>
+            </nav>
+
+            <!-- Direct Contact & CTA -->
+            <div class="flex items-center gap-3 sm:gap-4 flex-shrink-0">
+                <!-- Phone details: Hidden on laptops, visible on very wide 2xl screens to avoid congestion -->
+                <a href="tel:+919797972175"
+                    class="hidden 2xl:flex items-center gap-2 text-xs font-bold tracking-[0.05em] text-blue-700 hover:text-brandBlue transition-colors duration-300">
+                    <span class="text-brandBlue">📞</span> Call Us: +91 97 97 97 21 75
+                </a>
+
+                <!-- Replicated Round Blue Search Icon -->
+                <button onclick="document.getElementById('hero-search-input').focus()" aria-label="Search"
+                    class="w-10 h-10 bg-brandBlue hover:bg-brandBlue-hover text-white flex items-center justify-center rounded-full transition-all duration-300 shadow-md">
+                    🔍
+                </button>
+
+                <!-- Replicated Blue Login Button -->
+                <a href="dashboard.html"
+                    class="bg-brandBlue hover:bg-brandBlue-hover text-white px-6 py-2.5 text-xs uppercase tracking-[0.15em] font-bold transition-all duration-300 rounded-full shadow-md">
+                    Login
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" aria-label="Toggle Navigation Menu"
+                    class="lg:hidden flex flex-col justify-between h-4 w-6 cursor-pointer group">
+                    <span
+                        class="h-[1.5px] w-full bg-blue-800 group-hover:bg-brandBlue transition-all duration-300"></span>
+                    <span
+                        class="h-[1.5px] w-full bg-blue-800 group-hover:bg-brandBlue transition-all duration-300"></span>
+                    <span
+                        class="h-[1.5px] w-full bg-blue-800 group-hover:bg-brandBlue transition-all duration-300"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-dropdown"
+            class="hidden lg:hidden bg-white border-b border-blue-100 px-6 py-8 flex flex-col gap-6 animate-fadeIn shadow-lg">
+            <a href="index.html" class="text-sm uppercase tracking-[0.15em] font-bold text-brandBlue">Home</a>
+            <a href="packages.html"
+                class="text-sm uppercase tracking-[0.15em] font-semibold text-blue-700 hover:text-brandBlue">Backpacking
+                Trips</a>
+            <a href="#services"
+                class="text-sm uppercase tracking-[0.15em] font-semibold text-blue-700 hover:text-brandBlue">Best
+                Sellers</a>
+            <a href="about.html"
+                class="text-sm uppercase tracking-[0.15em] font-semibold text-blue-700 hover:text-brandBlue">Biking
+                Trips</a>
+            <a href="contact.html"
+                class="text-sm uppercase tracking-[0.15em] font-semibold text-blue-700 hover:text-brandBlue">Contact</a>
+            <a href="contact.html"
+                class="bg-brandBlue hover:bg-brandBlue-hover text-center py-3 text-sm uppercase tracking-[0.15em] font-bold text-white transition-all duration-300 rounded-full shadow-md">
+                Plan My Journey
+            </a>
+        </div>
+    </header>
+
+    <!-- =========================================
+         CONTACT HERO BANNER (EDITORIAL)
+         ========================================= -->
+    <section class="relative bg-onyx py-28 overflow-hidden">
+        <!-- Immersive Background Image with Dark Linear Overlays -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80" alt="Contact TripNest"
+                class="w-full h-full object-cover opacity-35 scale-105 transform transition-transform duration-[10000ms] ease-out">
+            <div class="absolute inset-0 bg-gradient-to-r from-onyx via-onyx/85 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-onyx/90 via-transparent to-onyx/40"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 text-left space-y-5">
+            <span class="text-brandBlue uppercase tracking-[0.35em] text-[10px] sm:text-xs font-bold block">BESPOKE INQUIRIES</span>
+            <h1 class="font-serif text-5xl md:text-7xl font-extralight tracking-tight text-white leading-none">
+                Consult a <span class="italic text-brandBlue font-light drop-shadow-[0_0_15px_rgba(26,86,219,0.3)]">Destination Specialist</span>
+            </h1>
+            <p class="text-white/70 text-xs sm:text-sm font-light tracking-wide max-w-xl leading-relaxed pt-2">
+                Initiate your curated journey. Fill in your preferences below, and our Mayfair-based concierge office will establish contact in under fifteen minutes.
+            </p>
+        </div>
+    </section>
+
+    <!-- =========================================
+         CONTACT AND WIZARD GRID LAYOUT
+         ========================================= -->
+    <main
+        class="max-w-7xl mx-auto px-6 sm:px-12 py-16 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start w-full">
+
+        <!-- Left Column: Global Offices (Span 4) -->
+        <section class="lg:col-span-4 space-y-10">
+            <div class="space-y-4">
+                <span class="text-brandBlue uppercase tracking-[0.35em] text-xs font-semibold block">GLOBAL PRESENCE</span>
+                <h2 class="font-serif text-3xl font-light text-blue-900 tracking-wide">The Global Lounges</h2>
+                <div class="w-12 h-[1.5px] bg-brandBlue"></div>
+            </div>
+
+            <!-- London Office -->
+            <div class="bg-white border border-blue-100/70 p-8 rounded-2xl shadow-[0_10px_35px_-15px_rgba(26,86,219,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(26,86,219,0.12)] hover:border-brandBlue/30 hover:-translate-y-1.5 transition-all duration-500 relative overflow-hidden group">
+                <div
+                    class="absolute top-0 right-0 w-24 h-24 bg-brandBlue/5 rounded-full blur-xl group-hover:bg-brandBlue/10 transition-all duration-500">
+                </div>
+                <span
+                    class="text-brandBlue text-[9px] uppercase tracking-[0.2em] font-semibold border border-brandBlue/30 px-3 py-1 rounded-full bg-brandBlue/5">London Headquarters</span>
+                <h3 class="font-serif text-2xl font-light text-blue-900 pt-3">Mayfair Club</h3>
+                <p class="text-blue-900/60 text-xs font-light tracking-wider leading-relaxed">
+                    14 Savile Row, Mayfair, London W1S 3JN<br>
+                    Helpline: +91 97 97 97 21 75<br>
+                    Email: london.club@tripnest.com
+                </p>
+                <div class="text-[9px] uppercase tracking-[0.2em] text-brandBlue font-medium pt-2">EST. 2011 • PRIVATE SALON</div>
+            </div>
+
+            <!-- Dubai Office -->
+            <div class="bg-white border border-blue-100/70 p-8 rounded-2xl shadow-[0_10px_35px_-15px_rgba(26,86,219,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(26,86,219,0.12)] hover:border-brandBlue/30 hover:-translate-y-1.5 transition-all duration-500 relative overflow-hidden group">
+                <div
+                    class="absolute top-0 right-0 w-24 h-24 bg-brandBlue/5 rounded-full blur-xl group-hover:bg-brandBlue/10 transition-all duration-500">
+                </div>
+                <span
+                    class="text-brandBlue text-[9px] uppercase tracking-[0.2em] font-semibold border border-brandBlue/30 px-3 py-1 rounded-full bg-brandBlue/5">Middle East Hub</span>
+                <h3 class="font-serif text-2xl font-light text-blue-900 pt-3">Downtown Lounge</h3>
+                <p class="text-blue-900/60 text-xs font-light tracking-wider leading-relaxed">
+                    Boulevard Plaza Tower 2, Downtown Dubai, UAE<br>
+                    Helpline: +971 4 356 0990<br>
+                    Email: dubai.lounge@tripnest.com
+                </p>
+                <div class="text-[9px] uppercase tracking-[0.2em] text-brandBlue font-medium pt-2">EST. 2015 • ELITE CONCIERGE</div>
+            </div>
+
+            <!-- Support channels -->
+            <div class="border-l border-brandBlue/30 pl-6 space-y-2">
+                <span class="font-serif text-brandBlue text-lg tracking-wider block italic">24/7 Global Liaison</span>
+                <p class="text-blue-900/55 text-[11px] font-light tracking-wider leading-relaxed">
+                    Active VIP members gain direct, secure access to private lines. Contact the duty concierge manager for absolute flight diversions or yacht modifications.
+                </p>
+            </div>
+        </section>
+
+        <!-- Right Column: Interactive Multi-Step Form Wizard (Span 8) -->
+        <section class="lg:col-span-8 bg-gradient-to-br from-blue-950 to-slate-900 border border-blue-800/40 p-8 sm:p-12 rounded-2xl shadow-2xl space-y-8 relative overflow-hidden">
+
+            <!-- Dynamic Gold Progress Bar -->
+            <div class="w-full bg-white/5 h-[2px] relative overflow-hidden rounded-sm">
+                <div id="wizard-progress" class="bg-brandBlue h-full w-1/4 transition-all duration-500 ease-out shadow-[0_0_8px_#1A56DB]"></div>
+            </div>
+
+            <!-- Progress Status Label -->
+            <div
+                class="flex items-center justify-between text-[10px] uppercase tracking-[0.25em] text-white/40 font-semibold">
+                <span id="step-label">Step 1 of 4 / Destination selection</span>
+                <span id="percent-label">25% Complete</span>
+            </div>
+
+            <form id="inquiry-form" class="space-y-8" onsubmit="handleFormSubmission(event)">
+
+                <!-- =========================================
+                     STEP 1: DESTINATION SELECTION
+                     ========================================= -->
+                <div id="step-1" class="wizard-step space-y-6">
+                    <div class="space-y-2">
+                        <h3 class="font-serif text-2xl md:text-3xl font-light text-white">Select Your Destination Enclave</h3>
+                        <p class="text-white/50 text-xs font-light tracking-wider">Select the enclave you wish to explore. Select 'Bespoke Custom' for unlisted global reserves.</p>
+                    </div>
+
+                    <!-- Custom Click Card Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <button type="button" data-value="maldives"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-5 text-left rounded-2xl flex flex-col justify-between aspect-square transition-all duration-300">
+                            <span class="text-white/30 text-[10px] tracking-widest font-semibold uppercase">01</span>
+                            <span class="font-serif text-xl font-light text-white tracking-wide block">Maldives</span>
+                        </button>
+                        <button type="button" data-value="dubai"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-5 text-left rounded-2xl flex flex-col justify-between aspect-square transition-all duration-300">
+                            <span class="text-white/30 text-[10px] tracking-widest font-semibold uppercase">02</span>
+                            <span class="font-serif text-xl font-light text-white tracking-wide block">Dubai</span>
+                        </button>
+                        <button type="button" data-value="rajasthan"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-5 text-left rounded-2xl flex flex-col justify-between aspect-square transition-all duration-300">
+                            <span class="text-white/30 text-[10px] tracking-widest font-semibold uppercase">03</span>
+                            <span class="font-serif text-xl font-light text-white tracking-wide block">Rajasthan</span>
+                        </button>
+                        <button type="button" data-value="kerala"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-5 text-left rounded-2xl flex flex-col justify-between aspect-square transition-all duration-300">
+                            <span class="text-white/30 text-[10px] tracking-widest font-semibold uppercase">04</span>
+                            <span class="font-serif text-xl font-light text-white tracking-wide block">Kerala</span>
+                        </button>
+                        <button type="button" data-value="manali"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-5 text-left rounded-2xl flex flex-col justify-between aspect-square transition-all duration-300">
+                            <span class="text-white/30 text-[10px] tracking-widest font-semibold uppercase">05</span>
+                            <span class="font-serif text-xl font-light text-white tracking-wide block">Manali</span>
+                        </button>
+                        <button type="button" data-value="goa"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-5 text-left rounded-2xl flex flex-col justify-between aspect-square transition-all duration-300">
+                            <span class="text-white/30 text-[10px] tracking-widest font-semibold uppercase">06</span>
+                            <span class="font-serif text-xl font-light text-white tracking-wide block">Goa</span>
+                        </button>
+                        <button type="button" data-value="custom"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-5 text-left rounded-2xl flex flex-col justify-between aspect-square col-span-2 sm:col-span-3 transition-all duration-300">
+                            <span
+                                class="text-white/30 text-[10px] tracking-widest font-semibold uppercase">Bespoke</span>
+                            <span class="font-serif text-xl font-light text-brandBlue tracking-wider block">Custom Off-Market Voyage</span>
+                        </button>
+                    </div>
+                    <!-- Hidden Input to store state -->
+                    <input type="hidden" name="destination" id="selected-destination" required>
+                </div>
+
+                <!-- =========================================
+                     STEP 2: GROUP SIZE SELECTOR
+                     ========================================= -->
+                <div id="step-2" class="wizard-step step-hidden space-y-6">
+                    <div class="space-y-2">
+                        <h3 class="font-serif text-2xl md:text-3xl font-light text-white">Specify the Travel Party</h3>
+                        <p class="text-white/50 text-xs font-light tracking-wider">Select the scale of your travel group so we can optimize private logistics.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button type="button" data-value="solo"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-6 text-left rounded-2xl space-y-2 transition-all duration-300">
+                            <span class="font-serif text-xl font-light text-white block">Solo Connoisseur</span>
+                            <span class="text-white/55 text-xs font-light tracking-wider block">Private single traveler routing</span>
+                        </button>
+                        <button type="button" data-value="couple"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-6 text-left rounded-2xl space-y-2 transition-all duration-300">
+                            <span class="font-serif text-xl font-light text-white block">Romantic Couple</span>
+                            <span class="text-white/55 text-xs font-light tracking-wider block">Two travelers, premium retreats</span>
+                        </button>
+                        <button type="button" data-value="family"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-6 text-left rounded-2xl space-y-2 transition-all duration-300">
+                            <span class="font-serif text-xl font-light text-white block">Family Sanctuary</span>
+                            <span class="text-white/55 text-xs font-light tracking-wider block">3 - 5 members, spacious layout</span>
+                        </button>
+                        <button type="button" data-value="corporate"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-6 text-left rounded-2xl space-y-2 transition-all duration-300">
+                            <span class="font-serif text-xl font-light text-white block">Corporate Elite</span>
+                            <span class="text-white/55 text-xs font-light tracking-wider block">6+ members, customized executive retreats</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="groupSize" id="selected-groupsize" required>
+                </div>
+
+                <!-- =========================================
+                     STEP 3: BUDGET PARAMETERS
+                     ========================================= -->
+                <div id="step-3" class="wizard-step step-hidden space-y-6">
+                    <div class="space-y-2">
+                        <h3 class="font-serif text-2xl md:text-3xl font-light text-white">Investment Scope</h3>
+                        <p class="text-white/50 text-xs font-light tracking-wider">Select the financial tier of your customized global voyage.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button type="button" data-value="premium"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-6 text-left rounded-2xl space-y-2 transition-all duration-300">
+                            <span class="font-serif text-xl font-light text-white block">Premium Portfolio</span>
+                            <span class="text-white/55 text-xs font-light tracking-wider block">Under ₹25,000 / starting tariff</span>
+                        </button>
+                        <button type="button" data-value="signature"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-6 text-left rounded-2xl space-y-2 transition-all duration-300">
+                            <span class="font-serif text-xl font-light text-white block">Bespoke Signature</span>
+                            <span class="text-white/55 text-xs font-light tracking-wider block">₹25,000 - ₹50,000 / middle tier</span>
+                        </button>
+                        <button type="button" data-value="elite"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-6 text-left rounded-2xl space-y-2 transition-all duration-300">
+                            <span class="font-serif text-xl font-light text-white block">Bespoke Elite</span>
+                            <span class="text-white/55 text-xs font-light tracking-wider block">₹50,000 - ₹1,00,000 / high-end villas</span>
+                        </button>
+                        <button type="button" data-value="charter"
+                            class="click-card bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 p-6 text-left rounded-2xl space-y-2 transition-all duration-300">
+                            <span class="font-serif text-xl font-light text-brandBlue block">Off-Market Charter</span>
+                            <span class="text-white/55 text-xs font-light tracking-wider block">Over ₹1,00,000 / private jets, yachts</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="budget" id="selected-budget" required>
+                </div>
+
+                <!-- =========================================
+                     STEP 4: PERSONAL CREDENTIALS
+                     ========================================= -->
+                <div id="step-4" class="wizard-step step-hidden space-y-6">
+                    <div class="space-y-2">
+                        <h3 class="font-serif text-2xl md:text-3xl font-light text-white">Personal Credentials</h3>
+                        <p class="text-white/50 text-xs font-light tracking-wider">Provide secure credentials so our Duty Specialist can finalize your proposal.</p>
+                    </div>
+
+                    <!-- Underlined inputs -->
+                    <div class="space-y-8 pt-4">
+                        <div
+                            class="relative border-b border-white/20 focus-within:border-brandBlue transition-all duration-300">
+                            <label class="text-[9px] uppercase tracking-[0.2em] text-white/40 block font-semibold">Full Legal Name</label>
+                            <input type="text" id="cust-name"
+                                class="bg-transparent border-0 px-0 py-2.5 w-full text-xs font-light tracking-wider text-white focus:ring-0 focus:outline-none placeholder-white/20"
+                                placeholder="E.G. ARTHUR SINCLAIR" required>
+                        </div>
+
+                        <div
+                            class="relative border-b border-white/20 focus-within:border-brandBlue transition-all duration-300">
+                            <label
+                                class="text-[9px] uppercase tracking-[0.2em] text-white/40 block font-semibold">Secure Email Address</label>
+                            <input type="email" id="cust-email"
+                                class="bg-transparent border-0 px-0 py-2.5 w-full text-xs font-light tracking-wider text-white focus:ring-0 focus:outline-none placeholder-white/20"
+                                placeholder="YOUR@EMAIL.COM" required>
+                        </div>
+
+                        <div
+                            class="relative border-b border-white/20 focus-within:border-brandBlue transition-all duration-300">
+                            <label
+                                class="text-[9px] uppercase tracking-[0.2em] text-white/40 block font-semibold">Telephone / WhatsApp</label>
+                            <input type="tel" id="cust-phone"
+                                class="bg-transparent border-0 px-0 py-2.5 w-full text-xs font-light tracking-wider text-white focus:ring-0 focus:outline-none placeholder-white/20"
+                                placeholder="+44 7946 0958" required>
+                        </div>
+
+                        <div
+                            class="relative border-b border-white/20 focus-within:border-brandBlue transition-all duration-300">
+                            <label
+                                class="text-[9px] uppercase tracking-[0.2em] text-white/40 block font-semibold">Special Concierge Instructions (Optional)</label>
+                            <textarea id="cust-notes" rows="3"
+                                class="bg-transparent border-0 px-0 py-2.5 w-full text-xs font-light tracking-wider text-white focus:ring-0 focus:outline-none resize-none placeholder-white/20"
+                                placeholder="E.G. DIETARY DETAILS, PRIVATE RUNWAY ACCESS REQUESTS, ETC."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wizard Actions -->
+                <div class="flex items-center justify-between pt-6 border-t border-white/5">
+                    <button type="button" id="prev-btn"
+                        class="hidden px-6 py-3 border border-white/10 text-white/60 hover:text-white hover:border-white/30 text-xs uppercase tracking-[0.2em] font-medium transition-all duration-300 rounded-sm">
+                        Back
+                    </button>
+
+                    <span class="flex-1"></span>
+
+                    <button type="button" id="next-btn"
+                        class="px-8 py-3.5 bg-brandBlue hover:bg-brandBlue-hover text-white text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-full shadow-lg">
+                        Continue
+                    </button>
+                    <button type="submit" id="submit-btn"
+                        class="hidden px-10 py-3.5 bg-brandBlue hover:bg-brandBlue-hover text-white text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-full shadow-lg animate-pulse">
+                        Submit Inquiry
+                    </button>
+                </div>
+
+            </form>
+        </section>
+    </main>
+
+    <!-- =========================================
+         CONFIRMATION POPUP MODAL (GLASSMORPHIC)
+         ========================================= -->
+    <div id="confirm-modal"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center bg-blue-900/80 backdrop-blur-md px-6">
+        <div
+            class="bg-blue-800 border border-brandBlue/30 p-8 sm:p-12 max-w-lg w-full rounded-sm shadow-2xl text-center space-y-6">
+            <div
+                class="w-16 h-16 bg-brandBlue/10 border border-brandBlue/40 text-brandBlue flex items-center justify-center rounded-full mx-auto text-2xl">
+                ✓
+            </div>
+            <div class="space-y-2">
+                <span class="text-brandBlue text-[9px] uppercase tracking-[0.3em] font-semibold block">Inquiry Dispatched</span>
+                <h3 class="font-serif text-3xl font-light text-white">Inner Circle Consult Triggered</h3>
+                <p class="text-white/60 text-xs font-light tracking-wider leading-relaxed max-w-sm mx-auto">
+                    Your luxury preferences have been transmitted securely. Our Mayfair Duty Curator, <strong>Mr. Sebastian Dubois</strong>, is reviewing your custom details.
+                </p>
+            </div>
+            <div class="bg-blue-900 p-4 text-[10px] text-white/50 tracking-widest font-mono border border-white/5">
+                DISPATCH ID: TRN-2026-88402A
+            </div>
+            <p class="text-white/40 text-[9px] uppercase tracking-[0.2em]">Sebastian will establish contact in under 15 minutes.</p>
+            <a href="dashboard.html"
+                class="inline-block w-full py-3.5 bg-brandBlue hover:bg-brandBlue-hover text-white text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-full shadow-lg">
+                Enter Concierge Lounge
+            </a>
+        </div>
+    </div>
+
+    <!-- =========================================
+         GLOBAL FOOTER (LIGHT THEME)
+         ========================================= -->
+    <footer class="bg-white border-t border-blue-200 py-8 md:py-8 text-blue-900 mt-auto">
+        <div class="max-w-7xl mx-auto px-6 sm:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            <!-- Brand Info Column -->
+            <div class="space-y-6">
+                <a href="index.html" class="flex items-center gap-2">
+                    <span class="font-sans font-extrabold text-2xl tracking-tight text-blue-900">Trip<span
+                            class="text-brandBlue">Nest</span></span>
+                </a>
+                <p class="text-blue-600 text-xs font-semibold tracking-wider leading-relaxed max-w-xs">
+                    Curators of peerless, bespoke global journeys. Redefining high-end hospitality and private concierge
+                    services for the modern connoisseur.
+                </p>
+                <div class="flex items-center gap-4 text-blue-500 text-[10px] tracking-widest font-semibold uppercase">
+                    <span>EST. 2011</span>
+                    <span>•</span>
+                    <span>GLOBAL CONCIERGE</span>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="space-y-6">
+                <h4 class="text-xs uppercase tracking-[0.25em] font-extrabold text-blue-900 font-sans">Explore</h4>
+                <ul class="space-y-3.5 text-xs font-semibold tracking-wider text-blue-600">
+                    <li><a href="index.html" class="hover:text-brandBlue transition-colors duration-300">Home
+                            Portal</a></li>
+                    <li><a href="packages.html" class="hover:text-brandBlue transition-colors duration-300">Travel
+                            Portfolios</a></li>
+                    <li><a href="about.html" class="hover:text-brandBlue transition-colors duration-300">Brand
+                            History</a></li>
+                    <li><a href="contact.html" class="hover:text-brandBlue transition-colors duration-300">Bespoke
+                            Inquiry</a></li>
+                    <li><a href="dashboard.html" class="hover:text-brandBlue transition-colors duration-300">Concierge
+                            Lounge</a></li>
+                </ul>
+            </div>
+
+            <!-- Lounges Column -->
+            <div class="space-y-6">
+                <h4 class="text-xs uppercase tracking-[0.25em] font-extrabold text-blue-900 font-sans">Global Lounges
+                </h4>
+                <ul class="space-y-3.5 text-xs font-semibold tracking-wider text-blue-600 leading-relaxed">
+                    <li class="flex items-start gap-2.5"><span class="text-brandBlue">•</span><span>Mayfair Club, 14
+                            Savile Row, London W1S 3JN</span></li>
+                    <li class="flex items-start gap-2.5"><span class="text-brandBlue">•</span><span>Downtown Lounge,
+                            Boulevard Plaza Tower 2, Dubai</span></li>
+                    <li class="flex items-start gap-2.5"><span class="text-brandBlue">•</span><span>24/7 Hotline: +91
+                            97 97 97 21 75</span></li>
+                    <li class="flex items-start gap-2.5"><span class="text-brandBlue">•</span><span>Email:
+                            concierge@tripnest.com</span></li>
+                </ul>
+            </div>
+
+            <!-- Inner Circle Column -->
+            <div class="space-y-6">
+                <h4 class="text-xs uppercase tracking-[0.25em] font-extrabold text-blue-900 font-sans">The Inner Circle
+                </h4>
+                <p class="text-blue-600 text-xs font-semibold tracking-wider leading-relaxed">
+                    Join our exclusive circle for seasonal, high-profile itineraries and off-market concierge bookings.
+                </p>
+                <form id="footer-newsletter-form" onsubmit="handleFooterSubscribe(event)" class="flex flex-col gap-2.5">
+                    <div
+                        class="relative border-b border-blue-300 focus-within:border-brandBlue transition-all duration-300">
+                        <input id="footer-news-input" type="email" placeholder="YOUR EMAIL ADDRESS" required
+                            class="bg-transparent border-0 px-0 py-2.5 w-full text-xs font-semibold tracking-widest text-blue-900 uppercase placeholder-blue-400 focus:ring-0 focus:outline-none">
+                        <button type="submit" aria-label="Subscribe to newsletter"
+                            class="absolute right-0 top-1/2 -translate-y-1/2 text-blue-400 hover:text-brandBlue transition-colors duration-300">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <span id="footer-success-msg"
+                        class="text-[9px] uppercase tracking-[0.2em] text-brandBlue hidden font-bold">Welcome to the
+                        Inner Circle.</span>
+                </form>
+            </div>
+        </div>
+
+        <div
+            class="max-w-7xl mx-auto px-6 sm:px-12 border-t border-blue-200 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] uppercase tracking-[0.25em] text-blue-500">
+            <p>&copy; 2026 TripNest Limited. All rights reserved.</p>
+            <div class="flex items-center gap-6">
+                <a href="#" class="hover:text-brandBlue transition-colors duration-300">Privacy Policy</a>
+                <span>•</span>
+                <a href="#" class="hover:text-brandBlue transition-colors duration-300">Terms of Luxury Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================
+         WIZARD INTERACTIVE SCRIPT
+         ========================================= -->
+    <script type="text/javascript">
+        // 1. Navigation Scroll Effect
+        const mainNav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                mainNav.classList.remove('bg-white/95', 'border-blue-100');
+                mainNav.classList.add('bg-white', 'shadow-md', 'border-blue-200/50');
+            } else {
+                mainNav.classList.remove('bg-white', 'shadow-md', 'border-blue-200/50');
+                mainNav.classList.add('bg-white/95', 'border-blue-100');
+            }
+        });
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-dropdown').classList.toggle('hidden');
+        });
+
+        // 2. Wizard State Variables
+        let currentStep = 1;
+        const totalSteps = 4;
+        const progressLine = document.getElementById('wizard-progress');
+        const stepLabel = document.getElementById('step-label');
+        const percentLabel = document.getElementById('percent-label');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Labels mapping
+        const stepLabels = {
+            1: "Step 1 of 4 / Destination selection",
+            2: "Step 2 of 4 / Specify the Travel Party",
+            3: "Step 3 of 4 / Investment Scope",
+            4: "Step 4 of 4 / Personal Credentials"
+        };
+
+        // 3. Selection Cards Handler
+        function setupStepSelection(stepId, inputId) {
+            const cards = document.querySelectorAll(`#${stepId} .click-card`);
+            const hiddenInput = document.getElementById(inputId);
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    cards.forEach(c => c.classList.remove('active-card'));
+                    card.classList.add('active-card');
+                    hiddenInput.value = card.getAttribute('data-value');
+
+                    // Auto-advance short steps for smooth UX
+                    setTimeout(() => {
+                        if (currentStep < 3) {
+                            navigateSteps('next');
+                        }
+                    }, 350);
+                });
+            });
+        }
+
+        setupStepSelection('step-1', 'selected-destination');
+        setupStepSelection('step-2', 'selected-groupsize');
+        setupStepSelection('step-3', 'selected-budget');
+
+        // 4. Wizard Navigation Engine
+        function navigateSteps(direction) {
+            if (direction === 'next') {
+                if (currentStep === 1 && !document.getElementById('selected-destination').value) {
+                    alert('Please select a destination enclave before continuing.');
+                    return;
+                }
+                if (currentStep === 2 && !document.getElementById('selected-groupsize').value) {
+                    alert('Please specify your travel party size.');
+                    return;
+                }
+                if (currentStep === 3 && !document.getElementById('selected-budget').value) {
+                    alert('Please select a budget range.');
+                    return;
+                }
+            }
+
+            // Hide current step
+            document.getElementById(`step-${currentStep}`).classList.add('step-hidden');
+
+            // Update current step pointer
+            if (direction === 'next') {
+                currentStep = Math.min(currentStep + 1, totalSteps);
+            } else {
+                currentStep = Math.max(currentStep - 1, 1);
+            }
+
+            // Show new step
+            document.getElementById(`step-${currentStep}`).classList.remove('step-hidden');
+
+            // Update controls
+            updateWizardControls();
+        }
+
+        function updateWizardControls() {
+            const pct = (currentStep / totalSteps) * 100;
+            progressLine.style.width = `${pct}%`;
+            percentLabel.textContent = `${pct}% Complete`;
+            stepLabel.textContent = stepLabels[currentStep];
+
+            if (currentStep > 1) {
+                prevBtn.classList.remove('hidden');
+            } else {
+                prevBtn.classList.add('hidden');
+            }
+
+            if (currentStep === totalSteps) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        nextBtn.addEventListener('click', () => navigateSteps('next'));
+        prevBtn.addEventListener('click', () => navigateSteps('prev'));
+
+        // 5. Submit Form and Trigger Modal
+        function handleFormSubmission(event) {
+            event.preventDefault();
+            const nameVal = document.getElementById('cust-name').value;
+            const emailVal = document.getElementById('cust-email').value;
+            const phoneVal = document.getElementById('cust-phone').value;
+
+            if (!nameVal || !emailVal || !phoneVal) {
+                alert('Please fill out all required credentials.');
+                return;
+            }
+
+            // Show confirmation popup
+            document.getElementById('confirm-modal').classList.remove('hidden');
+        }
+
+        // 6. Pre-select Destination based on URL Query Parameters
+        function parseQueryParamAndPreselect() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const packageParam = urlParams.get('package');
+            if (packageParam) {
+                const targetCard = document.querySelector(`#step-1 .click-card[data-value="${packageParam}"]`);
+                if (targetCard) {
+                    targetCard.click();
+                }
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', parseQueryParamAndPreselect);
+    </script>
+</body>
+
+</html>

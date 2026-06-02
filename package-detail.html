@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripNest | Curated Journeys & Bespoke Luxury Concierge</title>
+
+    <!-- Meta Descriptions for SEO -->
+    <meta name="description"
+        content="Embark on unparalleled bespoke journeys with TripNest. Discover handpicked elite accommodations, private aviation, and luxury itineraries designed for the discerning global traveler.">
+    <meta name="keywords"
+        content="luxury travel, boutique concierge, bespoke itineraries, private jet, luxury hotel booking, tailormade tours, TripNest">
+
+    <!-- Google Fonts: Cormorant Garamond (Serif) & Plus Jakarta Sans (Sans-Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Configuration for Luxury Theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        onyx: '#090d16',
+                        cream: '#ffffff',
+                        brandBlue: {
+                            DEFAULT: '#1A56DB',
+                            hover: '#1D4ED8',
+                            light: '#EFF6FF',
+                        },
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        sm: '8px',
+                        md: '12px',
+                        lg: '16px',
+                        xl: '24px',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS Overrides for Premium Aesthetic -->
+    <style type="text/css">
+        /* Custom blue/green thin scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1A56DB;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #70c21e;
+        }
+
+        /* Custom image zoom hover transition */
+        .zoom-img-container:hover .zoom-img {
+            transform: scale(1.1);
+        }
+
+        /* Smooth fade-in transition for filtered cards */
+        .fade-card {
+            transition: all 0.50s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-card.hidden-card {
+            opacity: 0;
+            transform: scale(0.95) translateY(10px);
+            pointer-events: none;
+            position: absolute;
+            width: 0;
+            height: 0;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            border: none;
+        }
+
+        /* Circular Category navigation active state indicator */
+        .story-active {
+            border-color: #70c21e !important;
+            box-shadow: 0 0 12px rgba(112, 194, 30, 0.4);
+        }
+
+        /* Scroll reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gradient-to-b from-white via-blue-50/20 to-white text-blue-900 font-sans antialiased selection:bg-brandBlue selection:text-white min-h-screen flex flex-col pt-20 pb-28">
+
+    <!-- =========================================
+         GLOBAL NAVIGATION HEADER
+         ========================================= -->
+    <header id="main-nav"
+        class="fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-blue-100 bg-white/95 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 sm:px-12 h-20 flex items-center justify-between">
+            <!-- Brand Logo and Zanskar live badge -->
+            <div class="flex items-center gap-4 flex-shrink-0">
+                <a href="index.html" class="flex items-center gap-2 group">
+                    <span class="font-sans font-extrabold text-2xl tracking-tight text-brandBlue">Trip<span
+                            class="text-brandBlue">Nest</span></span>
+                </a>
+
+                <!-- Replicated Live Badge: Hidden on medium/large desktops, visible only on wider screens -->
+                <div
+                    class="hidden xl:flex items-center gap-1.5 border border-brandBlue/30 px-3 py-1 rounded-full bg-brandBlue/5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brandBlue animate-ping"></span>
+                    <span class="text-[9px] uppercase tracking-widest text-brandBlue font-bold">Ladakh Group
+                        Live</span>
+                </div>
+            </div>
+
+            <!-- Navigation Links: Removed redundant Home link, reduced gaps and adjusted font details -->
+            <nav class="hidden lg:flex items-center gap-5 xl:gap-6 flex-grow justify-center px-4">
+                <a href="packages.html"
+                    class="text-[11px] uppercase tracking-wider font-bold text-blue-700 hover:text-brandBlue transition-colors duration-300">Backpacking
+                    Trips <span class="text-[7px] align-middle"></span></a>
+                <a href="#services"
+                    class="text-[11px] uppercase tracking-wider font-bold text-blue-700 hover:text-brandBlue transition-colors duration-300">Best
+                    Sellers <span class="text-[7px] align-middle"></span></a>
+                <a href="about.html"
+                    class="text-[11px] uppercase tracking-wider font-bold text-blue-700 hover:text-brandBlue transition-colors duration-300">Biking
+                    Trips <span class="text-[7px] align-middle"></span></a>
+                <a href="contact.html"
+                    class="text-[11px] uppercase tracking-wider font-bold text-blue-700 hover:text-brandBlue transition-colors duration-300">Contact</a>
+            </nav>
+
+            <!-- Direct Contact & CTA -->
+            <div class="flex items-center gap-3 sm:gap-4 flex-shrink-0">
+                <!-- Phone details: Hidden on laptops, visible on very wide 2xl screens to avoid congestion -->
+                <a href="tel:+919797972175"
+                    class="hidden 2xl:flex items-center gap-2 text-xs font-bold tracking-[0.05em] text-blue-700 hover:text-brandBlue transition-colors duration-300">
+                    <span class="text-brandBlue">📞</span> Call Us: +91 97 97 97 21 75
+                </a>
+
+                <!-- Replicated Round Blue Search Icon -->
+                <button onclick="document.getElementById('hero-search-input').focus()" aria-label="Search"
+                    class="w-10 h-10 bg-brandBlue hover:bg-brandBlue-hover text-white flex items-center justify-center rounded-full transition-all duration-300 shadow-md">
+                    🔍
+                </button>
+
+                <!-- Replicated Blue Login Button -->
+                <a href="dashboard.html"
+                    class="bg-brandBlue hover:bg-brandBlue-hover text-white px-6 py-2.5 text-xs uppercase tracking-[0.15em] font-bold transition-all duration-300 rounded-full shadow-md">
+                    Login
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" aria-label="Toggle Navigation Menu"
+                    class="lg:hidden flex flex-col justify-between h-4 w-6 cursor-pointer group">
+                    <span
+                        class="h-[1.5px] w-full bg-blue-800 group-hover:bg-brandBlue transition-all duration-300"></span>
+                    <span
+                        class="h-[1.5px] w-full bg-blue-800 group-hover:bg-brandBlue transition-all duration-300"></span>
+                    <span
+                        class="h-[1.5px] w-full bg-blue-800 group-hover:bg-brandBlue transition-all duration-300"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-dropdown"
+            class="hidden lg:hidden bg-white border-b border-blue-100 px-6 py-8 flex flex-col gap-6 animate-fadeIn shadow-lg">
+            <a href="index.html" class="text-sm uppercase tracking-[0.15em] font-bold text-brandBlue">Home</a>
+            <a href="packages.html"
+                class="text-sm uppercase tracking-[0.15em] font-semibold text-blue-700 hover:text-brandBlue">Backpacking
+                Trips</a>
+            <a href="#services"
+                class="text-sm uppercase tracking-[0.15em] font-semibold text-blue-700 hover:text-brandBlue">Best
+                Sellers</a>
+            <a href="about.html"
+                class="text-sm uppercase tracking-[0.15em] font-semibold text-blue-700 hover:text-brandBlue">Biking
+                Trips</a>
+            <a href="contact.html"
+                class="text-sm uppercase tracking-[0.15em] font-semibold text-blue-700 hover:text-brandBlue">Contact</a>
+            <a href="contact.html"
+                class="bg-brandBlue hover:bg-brandBlue-hover text-center py-3 text-sm uppercase tracking-[0.15em] font-bold text-white transition-all duration-300 rounded-full shadow-md">
+                Plan My Journey
+            </a>
+        </div>
+    </header>
+
+    <!-- =========================================
+         DYNAMIC PARALLAX HERO TEMPLATE
+         ========================================= -->
+    <section id="detail-hero" class="relative h-[60vh] bg-onyx flex items-end justify-start overflow-hidden">
+        <!-- Visual Dynamic Image Background -->
+        <div class="absolute inset-0 z-0">
+            <img id="detail-hero-img" src="" alt="Destination View"
+                class="w-full h-full object-cover object-center opacity-35 scale-105 transform transition-transform duration-[10000ms] ease-out">
+            <div class="absolute inset-0 bg-gradient-to-r from-onyx via-onyx/85 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-onyx/90 via-transparent to-onyx/40"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 md:px-16 w-full pb-16 space-y-5">
+            <span id="detail-tag"
+                class="bg-brandBlue/10 border border-brandBlue/30 text-brandBlue text-[9px] uppercase tracking-[0.25em] px-3.5 py-1.5 font-bold rounded-full inline-block"></span>
+            <h1 id="detail-title" class="font-serif text-5xl md:text-7xl font-extralight tracking-tight text-white leading-none"></h1>
+            <div class="flex items-center gap-6 text-xs text-white/60 tracking-wider pt-2">
+                <span id="detail-duration" class="uppercase font-semibold"></span>
+                <span>•</span>
+                <span class="text-brandBlue font-bold text-xs tracking-[0.1em]">BEST PRICE VERIFIED</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         ITINERARY DETAILS & STACK LAYOUT
+         ========================================= -->
+    <main class="max-w-7xl mx-auto px-6 sm:px-12 py-16 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start w-full">
+
+        <!-- Left Side (Details, Description, Inclusions vs Exclusions) - Span 7 -->
+        <section class="lg:col-span-7 space-y-12">
+
+            <!-- Description Box -->
+            <div class="bg-white border border-blue-100/70 p-8 rounded-2xl shadow-[0_10px_35px_-15px_rgba(26,86,219,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(26,86,219,0.12)] hover:border-brandBlue/30 transition-all duration-500 space-y-6">
+                <h2 class="font-serif text-3xl font-light text-blue-900 tracking-wide">Overview of the Journey</h2>
+                <div class="w-12 h-[1.5px] bg-brandBlue"></div>
+                <p id="detail-description"
+                    class="text-blue-900/70 text-sm md:text-base font-light tracking-wider leading-relaxed"></p>
+            </div>
+
+            <!-- Inclusions vs Exclusions Grid -->
+            <div class="bg-white border border-blue-100/70 p-8 rounded-2xl shadow-[0_10px_35px_-15px_rgba(26,86,219,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(26,86,219,0.12)] hover:border-brandBlue/30 transition-all duration-500 space-y-8">
+                <h3 class="font-serif text-2xl font-light text-blue-900 tracking-wide">Inclusions & Exclusions</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Inclusions -->
+                    <div class="space-y-4">
+                        <span
+                            class="text-[10px] uppercase tracking-[0.25em] text-brandBlue font-semibold flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandBlue animate-ping"></span> Inclusions
+                        </span>
+                        <ul id="detail-inclusions"
+                            class="space-y-3 text-xs font-light text-blue-900/75 tracking-wider leading-relaxed">
+                            <!-- Populated dynamically -->
+                        </ul>
+                    </div>
+
+                    <!-- Exclusions -->
+                    <div class="space-y-4">
+                        <span
+                            class="text-[10px] uppercase tracking-[0.25em] text-blue-500 font-semibold">Exclusions</span>
+                        <ul id="detail-exclusions"
+                            class="space-y-3 text-xs font-light text-blue-900/60 tracking-wider leading-relaxed">
+                            <!-- Populated dynamically -->
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Concierge Note -->
+            <div class="border-l-2 border-brandBlue/40 pl-6 space-y-2.5">
+                <span class="font-serif text-brandBlue text-lg tracking-wider block italic">Tailored adjustments?</span>
+                <p class="text-blue-900/65 text-xs font-light tracking-wider leading-relaxed">
+                    This itinerary can be adapted to accommodate private flights, custom security parameters, dietary parameters, or multi-generational pacing. Inform your specialist when booking.
+                </p>
+            </div>
+        </section>
+
+        <!-- Right Side (Day-by-Day sequence vertical timeline) - Span 5 -->
+        <section class="lg:col-span-5 space-y-8">
+            <h2 class="font-serif text-3xl font-light text-blue-900 tracking-wide">Daily Timeline</h2>
+            <div class="w-12 h-[1.5px] bg-brandBlue"></div>
+
+            <!-- Timeline Container -->
+            <div id="detail-timeline" class="relative border-l border-brandBlue/20 ml-4 pl-8 space-y-12 py-4">
+                <!-- Day blocks populated dynamically -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =========================================
+         FIXED FLOATING BOTTOM SUMMARY BOOKING BAR
+         ========================================= -->
+    <div id="floating-bar"
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-5xl bg-white/95 backdrop-blur-md border border-blue-100/80 z-40 py-4 px-8 rounded-2xl shadow-[0_20px_50px_-15px_rgba(26,86,219,0.15)] transition-all duration-500 transform translate-y-0">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="space-y-1">
+                <span class="text-brandBlue text-[9px] uppercase tracking-[0.25em] font-bold block">Starting Tariffs</span>
+                <div class="flex items-baseline gap-3">
+                    <span id="floating-price" class="text-blue-900 font-serif text-2xl md:text-3xl font-medium"></span>
+                    <span id="floating-duration"
+                        class="text-blue-900/55 text-[9px] uppercase tracking-[0.2em] font-light"></span>
+                </div>
+            </div>
+
+            <!-- Dynamic CTA link to contact form with pre-filled param -->
+            <a id="floating-cta" href=""
+                class="bg-brandBlue hover:bg-brandBlue-hover text-white px-8 py-3.5 text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold text-center transition-all duration-300 rounded-full shadow-md hover:shadow-lg hover:-translate-y-0.5 transform">
+                Book This Journey
+            </a>
+        </div>
+    </div>
+
+    <!-- =========================================
+         GLOBAL FOOTER (DARK THEME)
+         ========================================= -->
+    <!-- =========================================
+         CTA SECTION: THE INNER CIRCLE NEWSLETTER
+         ========================================= -->
+    <section class="bg-blue-50 py-20 px-6 sm:px-12 relative z-10 border-b border-blue-100">
+        <div class="max-w-7xl mx-auto">
+            <div
+                class="bg-gradient-to-r from-brandBlue to-slate-900 border border-brandBlue/20 p-8 sm:p-12 lg:p-16 rounded-[2rem] shadow-2xl relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="absolute inset-0 opacity-10 mix-blend-overlay bg-repeat pointer-events-none"
+                    style="background-image: url('data:image/svg+xml;utf8,<svg viewBox=%220 0 100 100%22 xmlns=%22http://www.w3.org/2000/svg%22><filter id=%22noise%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%22 height=%22100%22 filter=%22url(%23noise)%22/></svg>');">
+                </div>
+
+                <div class="lg:col-span-7 space-y-6 relative z-10 text-left">
+                    <div class="space-y-2">
+                        <span
+                            class="text-brandBlue uppercase tracking-[0.3em] text-[10px] font-bold block">NEWSLETTER</span>
+                        <h2
+                            class="font-sans text-3xl sm:text-4xl text-white font-extrabold tracking-tight leading-none">
+                            Sign up now!</h2>
+                        <p class="text-white/80 text-xs sm:text-sm font-semibold tracking-wider leading-relaxed">
+                            Be the first one to know all about the Exciting Offers, Travel Updates and more.
+                        </p>
+                    </div>
+
+                    <!-- Input Block Capsule -->
+                    <form onsubmit="handleInnerCircleSubscribe(event)"
+                        class="w-full max-w-md bg-white p-1.5 rounded-full flex items-center shadow-xl border border-white/10">
+                        <div class="flex-1 px-4">
+                            <input id="news-email-input" type="email" placeholder="Enter Your Email" required
+                                class="bg-transparent border-0 w-full text-xs font-semibold text-blue-800 uppercase placeholder-blue-400 focus:ring-0 focus:outline-none">
+                        </div>
+                        <button type="submit"
+                            class="bg-blue-900 hover:bg-blue-800 text-white px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-full flex-shrink-0">
+                            Subscribe
+                        </button>
+                    </form>
+                    <span id="news-success-msg"
+                        class="text-[10px] uppercase tracking-[0.2em] text-brandBlue hidden font-bold">Welcome to the
+                        Inner Circle. An activation digest is on the way.</span>
+                </div>
+
+                <div
+                    class="lg:col-span-5 flex flex-col items-center lg:items-end justify-center relative z-10 text-center lg:text-right border-t lg:border-t-0 lg:border-l border-white/20 pt-8 lg:pt-0 lg:pl-12 gap-2 select-none">
+                    <span class="font-sans text-brandBlue text-xs font-bold tracking-widest block uppercase">TripNest
+                        Presents:</span>
+                    <span
+                        class="font-sans text-white text-4xl sm:text-5xl font-extrabold tracking-widest block uppercase leading-none">Raahgir</span>
+                    <span class="text-white/60 text-[9px] uppercase tracking-[0.3em] block">Monthly Newsletter (Estd.
+                        2021)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-blue-200 py-8 md:py-8 text-blue-900 mt-auto">
+        <div class="max-w-7xl mx-auto px-6 sm:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            <!-- Brand Info Column -->
+            <div class="space-y-6">
+                <a href="index.html" class="flex items-center gap-2">
+                    <span class="font-sans font-extrabold text-2xl tracking-tight text-blue-900">Trip<span
+                            class="text-brandBlue">Nest</span></span>
+                </a>
+                <p class="text-blue-600 text-xs font-semibold tracking-wider leading-relaxed max-w-xs">
+                    Curators of peerless, bespoke global journeys. Redefining high-end hospitality and private concierge
+                    services for the modern connoisseur.
+                </p>
+                <div class="flex items-center gap-4 text-blue-500 text-[10px] tracking-widest font-semibold uppercase">
+                    <span>EST. 2011</span>
+                    <span>•</span>
+                    <span>GLOBAL CONCIERGE</span>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="space-y-6">
+                <h4 class="text-xs uppercase tracking-[0.25em] font-extrabold text-blue-900 font-sans">Explore</h4>
+                <ul class="space-y-3.5 text-xs font-semibold tracking-wider text-blue-600">
+                    <li><a href="index.html" class="hover:text-brandBlue transition-colors duration-300">Home
+                            Portal</a></li>
+                    <li><a href="packages.html" class="hover:text-brandBlue transition-colors duration-300">Travel
+                            Portfolios</a></li>
+                    <li><a href="about.html" class="hover:text-brandBlue transition-colors duration-300">Brand
+                            History</a></li>
+                    <li><a href="contact.html" class="hover:text-brandBlue transition-colors duration-300">Bespoke
+                            Inquiry</a></li>
+                    <li><a href="dashboard.html" class="hover:text-brandBlue transition-colors duration-300">Concierge
+                            Lounge</a></li>
+                </ul>
+            </div>
+
+            <!-- Lounges Column -->
+            <div class="space-y-6">
+                <h4 class="text-xs uppercase tracking-[0.25em] font-extrabold text-blue-900 font-sans">Global Lounges
+                </h4>
+                <ul class="space-y-3.5 text-xs font-semibold tracking-wider text-blue-600 leading-relaxed">
+                    <li class="flex items-start gap-2.5"><span class="text-brandBlue">•</span><span>Mayfair Club, 14
+                            Savile Row, London W1S 3JN</span></li>
+                    <li class="flex items-start gap-2.5"><span class="text-brandBlue">•</span><span>Downtown Lounge,
+                            Boulevard Plaza Tower 2, Dubai</span></li>
+                    <li class="flex items-start gap-2.5"><span class="text-brandBlue">•</span><span>24/7 Hotline: +91
+                            97 97 97 21 75</span></li>
+                    <li class="flex items-start gap-2.5"><span class="text-brandBlue">•</span><span>Email:
+                            concierge@tripnest.com</span></li>
+                </ul>
+            </div>
+
+            <!-- Inner Circle Column -->
+            <div class="space-y-6">
+                <h4 class="text-xs uppercase tracking-[0.25em] font-extrabold text-blue-900 font-sans">The Inner Circle
+                </h4>
+                <p class="text-blue-600 text-xs font-semibold tracking-wider leading-relaxed">
+                    Join our exclusive circle for seasonal, high-profile itineraries and off-market concierge bookings.
+                </p>
+                <form id="footer-newsletter-form" onsubmit="handleFooterSubscribe(event)" class="flex flex-col gap-2.5">
+                    <div
+                        class="relative border-b border-blue-300 focus-within:border-brandBlue transition-all duration-300">
+                        <input id="footer-news-input" type="email" placeholder="YOUR EMAIL ADDRESS" required
+                            class="bg-transparent border-0 px-0 py-2.5 w-full text-xs font-semibold tracking-widest text-blue-900 uppercase placeholder-blue-400 focus:ring-0 focus:outline-none">
+                        <button type="submit" aria-label="Subscribe to newsletter"
+                            class="absolute right-0 top-1/2 -translate-y-1/2 text-blue-400 hover:text-brandBlue transition-colors duration-300">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <span id="footer-success-msg"
+                        class="text-[9px] uppercase tracking-[0.2em] text-brandBlue hidden font-bold">Welcome to the
+                        Inner Circle.</span>
+                </form>
+            </div>
+        </div>
+
+        <div
+            class="max-w-7xl mx-auto px-6 sm:px-12 border-t border-blue-200 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] uppercase tracking-[0.25em] text-blue-500">
+            <p>&copy; 2026 TripNest Limited. All rights reserved.</p>
+            <div class="flex items-center gap-6">
+                <a href="#" class="hover:text-brandBlue transition-colors duration-300">Privacy Policy</a>
+                <span>•</span>
+                <a href="#" class="hover:text-brandBlue transition-colors duration-300">Terms of Luxury Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================
+         VANILLA JS DYNAMIC RENDER ENGINE
+         ========================================= -->
+    <script type="text/javascript">
+        // 1. Navigation Scroll Effect
+        const mainNav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                mainNav.classList.remove('bg-white/95', 'border-blue-100');
+                mainNav.classList.add('bg-white', 'shadow-md', 'border-blue-200/50');
+            } else {
+                mainNav.classList.remove('bg-white', 'shadow-md', 'border-blue-200/50');
+                mainNav.classList.add('bg-white/95', 'border-blue-100');
+            }
+        });
+
+        // 2. Mobile Menu Trigger
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-dropdown').classList.toggle('hidden');
+        });
+
+        // 3. Database of Itineraries (9 Portfolios)
+        const itinerariesDatabase = {
+            maldives: {
+                title: "Maldives Honeymoon",
+                tag: "International",
+                price: "₹89,999",
+                duration: "7 Days / 6 Nights",
+                bgImage: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1200&q=80",
+                description: "Escape to absolute tranquility inside our signature overwater luxury bungalows in the Maldives. Featuring sweeping turquoise views, private infinity pools, curated sunset champagne cruises, couples' deep-tissue spa sessions, and your own dedicated, personalized concierge manager available round the clock.",
+                inclusions: [
+                    "Elite Overwater Bungalow Stay",
+                    "Private Beachfront Access & Lounge",
+                    "Curated 90-Min Couple Spa Treatment",
+                    "Gourmet Candlelit Beach Dinners",
+                    "Complimentary Motorized Water Sports",
+                    "Dedicated 24/7 Concierge Representative"
+                ],
+                exclusions: [
+                    "International Roundtrip Airfares",
+                    "Personal Shopping Allowances",
+                    "High-end Vintage Wines and Spirits",
+                    "Custom Travel & Baggage Insurance"
+                ],
+                itinerary: [
+                    { day: 1, title: "VIP Private Speedboat Arrival", detail: "Arrive at Male Airport. Complete exclusive VIP customs clearance and embark on your private luxury speedboat directly to the resort. End your evening with welcome champagne." },
+                    { day: 2, title: "Overwater Pavilion Living & Spa", detail: "Enjoy a floating organic breakfast inside your private pool. Indulge in an afternoon deep-tissue couple's massage inside our award-winning overwater spa." },
+                    { day: 3, title: "Lagoon Exploration & Snorkeling", detail: "Embark on an exclusive catamaran tour. Snorkel inside private reefs with our marine biologists, encountering green turtles and manta rays." },
+                    { day: 4, title: "Secluded Sandbank Chef Picnic", detail: "Sail to an isolated, pristine sandbank. Enjoy a fully private white-glove chef picnic with custom food, spending the day in serene isolation." },
+                    { day: 5, title: "Golden Hour Departure", detail: "Savor a final gourmet sunrise breakfast. Take custom portrait photos, then board your return private speedboat transfer to Male International." }
+                ]
+            },
+            dubai: {
+                title: "Dubai Luxury Tour",
+                tag: "Adventure",
+                price: "₹45,999",
+                duration: "6 Days / 5 Nights",
+                bgImage: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80",
+                description: "Experience the ultimate height of luxury inside modern Dubai. Stay in internationally recognized 5-star skyscraper suites, embark on private gold-dune desert safaris with custom champagne toasts, cruise the Dubai Marina on an elite yacht, and explore customized shopping routes with certified VIP guides.",
+                inclusions: [
+                    "5-Star Luxury Skyscraper Hotel Stay",
+                    "VIP Desert Safari with Dune Chasing",
+                    "Private Gourmet Yacht Cruise",
+                    "Customized Mall Shopping Assistant",
+                    "Elite Private Chauffeur Fleet",
+                    "Full-time English Speaking VIP Guide"
+                ],
+                exclusions: [
+                    "Visa Procurement & Flight Fees",
+                    "Optional Skydiving & Jet Car Rentals",
+                    "Gratuities for Chauffeurs & Guides",
+                    "Extra Personal Dinners or Outings"
+                ],
+                itinerary: [
+                    { day: 1, title: "Rolls Royce Airport Arrival", detail: "Land at Dubai Airport, greeted by your chauffeur driving a Rolls Royce. Check into your executive high-rise skyline suite and enjoy premium welcome sweets." },
+                    { day: 2, title: "Elite Yacht Cruise & Marina Dine", detail: "Spend the afternoon cruising the Dubai Marina on an exclusive private yacht. Conclude the night with a fine-dining experience looking at the Dubai Eye." },
+                    { day: 3, title: "VIP Desert Safari & Dune Dinner", detail: "Take a customized 4x4 land cruiser into deep red sands. Experience private dune bashing, private falconry sessions, and an elite gourmet barbecue under stars." },
+                    { day: 4, title: "Burj Khalifa VIP Sky Lounge", detail: "Enjoy fast-track access to Level 148 of Burj Khalifa. Savor premium high-tea with unmatched panoramic views, then shop with your private shopping consultant." },
+                    { day: 5, title: "Heli-Tour & Chauffeur Departure", detail: "Fly over Palm Jumeirah in a luxury helicopter, followed by a final luxury transfer back to the international departure terminal." }
+                ]
+            },
+            rajasthan: {
+                title: "Rajasthan Royal Tour",
+                tag: "Tour",
+                price: "₹29,999",
+                duration: "5 Days / 4 Nights",
+                bgImage: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80",
+                description: "Step back in time to the era of absolute Indian royalty. Live like a Maharaja inside authentic, beautifully restored heritage palaces across Rajasthan. Ride camels through golden sands, observe private traditional folk performances, savor centuries-old recipes, and travel with expert historians.",
+                inclusions: [
+                    "Heritage Palace Suite Stays",
+                    "Private Desert Camel Excursions",
+                    "Exclusive Traditional Folk Shows",
+                    "Maharajah-style Fine Dining Meals",
+                    "Private Historian Guide",
+                    "Vintage Car Airport Transfers"
+                ],
+                exclusions: [
+                    "Domestic Aviation Bookings",
+                    "Camera & Drone Access Fees",
+                    "Alcholic Palatial Vintage Pairings",
+                    "Bespoke Souvenir Commissions"
+                ],
+                itinerary: [
+                    { day: 1, title: "Vintage Car Arrival & Palatial Welcome", detail: "Receive a grand royal rose-petal welcome upon arrival in Udaipur. Transferred in a vintage car to the Lake Palace, enjoying traditional royal music." },
+                    { day: 2, title: "Private Boat Ride & Historical Walks", detail: "Navigate Lake Pichola on a private boat tour. Explore grand palaces and heritage art galleries alongside our certified history professor." },
+                    { day: 3, title: "Thar Desert Camels & Folk Dance", detail: "Travel to Jodhpur. Board camels to ride into sand dunes at sunset, concluding with fire dances and a traditional royal courtyard feast." },
+                    { day: 4, title: "Fortress Tour & Culinary Masterclass", detail: "Ascend Mehrangarh Fort via private lift. Join our royal chef for an exclusive masterclass, learning the subtle arts of traditional cooking." },
+                    { day: 5, title: "Grand Royal Departure", detail: "Enjoy a final terrace palace brunch. Receive custom silver commemorative gifts and transfer back to the airport." }
+                ]
+            },
+            manali: {
+                title: "Manali Adventure Package",
+                tag: "Mountain",
+                price: "₹19,999",
+                duration: "4 Days / 3 Nights",
+                bgImage: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1200&q=80",
+                description: "Satisfy your soul's desire for crisp mountain air and high-altitude thrills. Our Manali adventure blends scenic trekking and professional paragliding with premium geodetic glamping, fireplace gourmet dining, and private photography capture.",
+                inclusions: [
+                    "Luxury Geodetic Glamping Stay",
+                    "Professional Paragliding Session",
+                    "Private Guided Mountain Treks",
+                    "All Organic High-Altitude Meals",
+                    "Fireside Live Instrumental Music",
+                    "Expert Mountaineer Concierge"
+                ],
+                exclusions: [
+                    "Extreme Skiing Equipment Rentals",
+                    "Heavy Cold Weather Outerwear",
+                    "Airport transfers outside Chandigarh",
+                    "Premium Alcohol Allocations"
+                ],
+                itinerary: [
+                    { day: 1, title: "Mountain Air & Glamp Check-in", detail: "Drive through panoramic mountain passes. Arrive at our heated luxury glamping domes. Savor organic hot cocoa by your personal log fireplace." },
+                    { day: 2, title: "High-flying Paragliding & Solang Valley", detail: "Glided above Solang Valley with our gold-certified paragliding pilots. Enjoy a premium organic barbecue lunch setup on a high-altitude meadow." },
+                    { day: 3, title: "Private Snow Trek & Glacier Views", detail: "Trek along pristine pine forests to look at panoramic snow glaciers. Enjoy a professional mountaintop portrait photoshoot session." },
+                    { day: 4, title: "Scenic Departure", detail: "Enjoy a rustic terrace mountain breakfast. Received custom pine-wood souvenirs and private chauffeur transfer to Chandigarh Airport." }
+                ]
+            },
+            goa: {
+                title: "Goa Beach Getaway",
+                tag: "Beach",
+                price: "₹15,999",
+                duration: "3 Days / 2 Nights",
+                bgImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+                description: "Escape to absolute coastal luxury. Walk along private white-sand beaches, reside inside ultra-premium oceanview beach villas, cruise with private yachts, and savor exquisite seafood prepared by Michelin-starred culinary teams.",
+                inclusions: [
+                    "5-Star Oceanfront Villa Stay",
+                    "Private Yacht Charter & Dolphin Safari",
+                    "Gourmet Seafood Beach dinners",
+                    "Premium Nightlife Club VIP Access",
+                    "Luxury Car Airport Transfers",
+                    "Bespoke Beach Butler Service"
+                ],
+                exclusions: [
+                    "Water sports equipment purchases",
+                    "Bespoke Spa treatments",
+                    "Private alcohol mini-bars",
+                    "Extended travel insurance coverage"
+                ],
+                itinerary: [
+                    { day: 1, title: "Ocean Villa Check-in & Sunset Dinner", detail: "Arrive in North Goa. Transferred directly to your private beach bungalow with an infinity pool. Enjoy a premium candlelit seafood dinner on the sand." },
+                    { day: 2, title: "Private Yacht Cruise & Dolphin Sighting", detail: "Board our luxury yacht for a private catamaran cruise. Watch dolphins swim nearby while enjoying chilled champagne and canapés." },
+                    { day: 3, title: "Traditional Spa & Farewell Chauffeur", detail: "Enjoy an organic herbal coconut oil massage. Dine at our beachside terrace, then receive a luxury chauffeur drive to Dabolim Airport." }
+                ]
+            },
+            kerala: {
+                title: "Kerala Backwaters Tour",
+                tag: "Nature",
+                price: "₹24,999",
+                duration: "5 Days / 4 Nights",
+                bgImage: "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=80",
+                description: "Drift along tranquil palm-fringed rivers inside a beautifully designed, high-fidelity luxury houseboat in Alleppey. Reside inside air-conditioned luxury cabins, sample exquisite traditional cuisine, tour spice farms, and get authentic Ayurveda treatments.",
+                inclusions: [
+                    "Luxury Air-conditioned Houseboat Stay",
+                    "Personal In-house Chef & Butler",
+                    "Guided Spice Farm Walking Tour",
+                    "Authentic Ayurveda Oil Massages",
+                    "All Meals (Traditional Keralan Feast)",
+                    "Private Sunset Boat Excursions"
+                ],
+                exclusions: [
+                    "Aviation Flights to Kochi Airport",
+                    "Souvenir purchasing at spice farms",
+                    "Vintage Wine & Palatial Beverages",
+                    "Optional Houseboat Upgrades"
+                ],
+                itinerary: [
+                    { day: 1, title: "Houseboat Welcome & Lagoon Cruise", detail: "Greeted at Kochi Airport and driven to Alleppey. Board your private luxury houseboat. Enjoy traditional welcoming coconut water." },
+                    { day: 2, title: "Lagoon Exploration & Village Walks", detail: "Cruise through tiny tropical waterways. Savor authentic fish curry cooked by your private chef and walk through old spice villages." },
+                    { day: 3, title: "Ayurveda Wellness Retreat", detail: "Dock at a luxury lake resort. Rejuvenate with a customized, professional 4-hand Ayurvedic oil body massage." },
+                    { day: 4, title: "Sunset Cruise & Keralan Feast", detail: "Take a speed-boat tour at golden hour. Conclude the night with a traditional Keralan Sadya feast served on banana leaves." },
+                    { day: 5, title: "Resort Checkout & Kochi Departure", detail: "Enjoy sunrise yoga on the deck. Indulge in a final breakfast before returning to Kochi Airport in a private luxury chauffeur sedan." }
+                ]
+            },
+            swiss: {
+                title: "Swiss Alps Romance",
+                tag: "Mountain",
+                price: "₹1,24,999",
+                duration: "8 Days / 7 Nights",
+                bgImage: "https://images.unsplash.com/photo-1502784444187-359ac186c5bb?auto=format&fit=crop&w=1200&q=80",
+                description: "Live inside a romantic alpine fairy tale. Reside inside an elite, ski-in boutique chalet in Zermatt facing the majestic Matterhorn. Take private cable cars, float in geothermal spas, dine on gourmet truffles, and fly via helicopter over snowy peaks.",
+                inclusions: [
+                    "Luxury Chalet Suite in Zermatt",
+                    "Private Ski/Snowboard Instructor",
+                    "Scenic Glacier Helicopter Tour",
+                    "Michelin-starred Chalet Dinners",
+                    "Geothermal Thermal Spa Passes",
+                    "All Swiss Rail First Class Passes"
+                ],
+                exclusions: [
+                    "Intercontinental Flight Routing",
+                    "Premium Ski Gear Purchases",
+                    "Vintage French Champagne Pairings",
+                    "Personal Shopping in Geneva"
+                ],
+                itinerary: [
+                    { day: 1, title: "First Class Rail Arrival", detail: "Board a first-class panoramic train from Zurich to Zermatt. Arrive at your chalet and enjoy Matterhorn-view cocktails by the roaring fireplace." },
+                    { day: 2, title: "Private Slopes & Powder Snow", detail: "Explore high-end ski slopes alongside your dedicated professional alpine guide, concluding with gourmet aprés-ski fondue." },
+                    { day: 3, title: "Matterhorn Helicopter Flight", detail: "Fly in a private helicopter around the peak of the Matterhorn, landing on a high glacier for a caviar and champagne picnic." },
+                    { day: 4, title: "Geothermal Spas & Wellness", detail: "Spend a restorative day inside heated outdoor mineral pools, looking at snow flurries while enjoying deep muscle therapy." },
+                    { day: 5, title: "Alpine Farewells & Travel Out", detail: "Enjoy a final warm breakfast, wrap up in cashmere blankets, and board your return first-class train back to Zurich." }
+                ]
+            },
+            kenya: {
+                title: "Kenya Safari Expedition",
+                tag: "Nature",
+                price: "₹74,999",
+                duration: "6 Days / 5 Nights",
+                bgImage: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80",
+                description: "Immerse yourself inside the heart of the wild. Stand face-to-face with Africa's majestic Big Five. Rest inside ultra-luxury eco-luxury canvas lodges in Maasai Mara, board sunrise hot air balloons, and safari alongside expert Maasai tribal guides.",
+                inclusions: [
+                    "Eco-Luxury tented safari camp stay",
+                    "Sunrise Hot Air Balloon Flight",
+                    "Unlimited Private 4x4 Game Drives",
+                    "Authentic Maasai cultural village walk",
+                    "All Inclusive Gourmet Bush Dinners",
+                    "Private Wilderness Flight Transfers"
+                ],
+                exclusions: [
+                    "International flight reservations",
+                    "Yellow Fever vaccinations",
+                    "Specialist camera equipment rentals",
+                    "Premium imported single-malts"
+                ],
+                itinerary: [
+                    { day: 1, title: "Wilderness Flight & Luxury Glamp", detail: "Board a private prop-jet from Nairobi directly into the Maasai Mara. Greeted with cold towels and driven to your luxury canvas camp." },
+                    { day: 2, title: "Dawn Game Drive & Big Five Search", detail: "Set out at sunrise in an open 4x4. Spot prides of lions, leopards, and herds of elephants, ending with a bush lunch under acacia trees." },
+                    { day: 3, title: "Hot Air Balloon Sunrise Cruise", detail: "Glide silently over the savannah in a hot air balloon as the sun rises. Land to a gorgeous champagne breakfast in the wild." },
+                    { day: 4, title: "Maasai Walk & Conservation Insights", detail: "Walk with native Maasai warriors, discovering tracking techniques, traditional medicines, and local wildlife conservation efforts." },
+                    { day: 5, title: "Wilderness departure", detail: "Embark on a final short game drive, pack up custom leather safari bags, and board your private charter flight back to Nairobi." }
+                ]
+            },
+            kyoto: {
+                title: "Kyoto Zen Retreat",
+                tag: "Tour",
+                price: "₹65,999",
+                duration: "5 Days / 4 Nights",
+                bgImage: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80",
+                description: "Rediscover absolute peace of mind inside the ancient temples of Kyoto. Live inside standard luxury historic Ryokans, take private tea ceremonies inside Zen moss gardens, study meditation with Zen temple masters, and explore bamboo forests at sunrise.",
+                inclusions: [
+                    "Premium Historic Ryokan Room",
+                    "Private Temple Tea Ceremony",
+                    "Zen Master Meditation Guides",
+                    "Authentic Multi-Course Kaiseki Meals",
+                    "Private Chauffeur & Translator",
+                    "Bespoke Bamboo Forest Tour"
+                ],
+                exclusions: [
+                    "International Tokyo Airfares",
+                    "Traditional Kimono purchases",
+                    "Geisha banquet upgrades",
+                    "High-speed Bullet Train tickets"
+                ],
+                itinerary: [
+                    { day: 1, title: "Ryokan Welcome & Kaiseki Dinner", detail: "Chauffeur transfer from Kyoto Station to your historic Ryokan. Wrap yourself in a silk yukata and experience a 9-course Kaiseki dinner." },
+                    { day: 2, title: "Moss Gardens & Zen Tea Ceremony", detail: "Enjoy a private morning tour of ancient gardens. Participate in a traditional, meditative tea ceremony led by a tea master." },
+                    { day: 3, title: "Temple Meditation with Zen Masters", detail: "Spend the day inside a secluded Zen temple. Study breathing and meditation techniques directly with the resident head monk." },
+                    { day: 4, title: "Sunrise Bamboo Walk & Geisha Lounge", detail: "Walk through the Arashiyama Bamboo Grove at sunrise before crowds arrive. End the night with traditional musical performances." },
+                    { day: 5, title: "Zen Farewell & Kyoto Departures", detail: "Dine on a temple-style vegetarian breakfast, receive a hand-written calligraphy scroll, and transfer back to the train terminal." }
+                ]
+            }
+        };
+
+        // 4. Query Parameter Parser and Dynamic Template Updater
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function populateTemplate() {
+            let packageKey = getQueryParam('package');
+            if (!packageKey || !itinerariesDatabase[packageKey]) {
+                packageKey = 'maldives';
+            }
+
+            const data = itinerariesDatabase[packageKey];
+
+            // Update page Title and Meta
+            document.title = `${data.title} Itinerary | TripNest Luxury Travel`;
+
+            // Update Hero elements
+            document.getElementById('detail-hero-img').src = data.bgImage;
+            document.getElementById('detail-hero-img').alt = data.title;
+            document.getElementById('detail-tag').textContent = data.tag;
+            document.getElementById('detail-title').textContent = data.title;
+            document.getElementById('detail-duration').textContent = data.duration;
+
+            // Update Description
+            document.getElementById('detail-description').textContent = data.description;
+
+            // Populate Inclusions
+            const inclusionsList = document.getElementById('detail-inclusions');
+            inclusionsList.innerHTML = '';
+            data.inclusions.forEach(inc => {
+                const li = document.createElement('li');
+                li.className = "flex items-start gap-2.5";
+                li.innerHTML = `<span class="text-brandBlue font-bold">✓</span><span>${inc}</span>`;
+                inclusionsList.appendChild(li);
+            });
+
+            // Populate Exclusions
+            const exclusionsList = document.getElementById('detail-exclusions');
+            exclusionsList.innerHTML = '';
+            data.exclusions.forEach(exc => {
+                const li = document.createElement('li');
+                li.className = "flex items-start gap-2.5";
+                li.innerHTML = `<span class="text-blue-400 font-bold">✕</span><span>${exc}</span>`;
+                exclusionsList.appendChild(li);
+            });
+
+            // Populate Timeline
+            const timelineContainer = document.getElementById('detail-timeline');
+            timelineContainer.innerHTML = '';
+            data.itinerary.forEach(step => {
+                const block = document.createElement('div');
+                block.className = "relative pl-6 md:pl-10 group";
+                block.innerHTML = `
+                    <!-- Timeline Node -->
+                    <span class="absolute -left-[41px] top-1 bg-white border border-brandBlue/30 text-brandBlue w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold font-serif group-hover:bg-brandBlue group-hover:text-white group-hover:shadow-[0_0_15px_rgba(26,86,219,0.4)] transition-all duration-300">
+                        ${step.day}
+                    </span>
+                    <div class="space-y-2">
+                        <span class="text-[9px] uppercase tracking-[0.25em] text-brandBlue block font-semibold">Day ${step.day} / Itinerary Sequence</span>
+                        <h4 class="font-serif text-xl font-light text-blue-900 group-hover:text-brandBlue transition-colors duration-300">${step.title}</h4>
+                        <p class="text-blue-900/60 text-xs md:text-sm font-light tracking-wider leading-relaxed max-w-lg">
+                            ${step.detail}
+                        </p>
+                    </div>
+                `;
+                timelineContainer.appendChild(block);
+            });
+
+            // Populate Floating Bottom Bar
+            document.getElementById('floating-price').textContent = data.price;
+            document.getElementById('floating-duration').textContent = `Starting Tariffs / ${data.duration}`;
+
+            // Set dynamic link to inquiry page, pre-populating with the selected package
+            document.getElementById('floating-cta').href = `contact.html?package=${packageKey}`;
+        }
+
+        // Initialize template on window load
+        window.addEventListener('DOMContentLoaded', populateTemplate);
+    </script>
+</body>
+
+</html>
